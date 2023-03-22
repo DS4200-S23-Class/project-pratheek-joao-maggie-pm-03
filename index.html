@@ -24,9 +24,9 @@
             <p>The purpose of this project is to support high school students in their decision-making process for choosing a university.</p>
             <p>Select domain tasks include:
                 <ul>
-                    <li>”I want to identify which state has the cheapest out-of-state tuition.”</li>
-                    <li>”I want to explore the universities in my state to see which ones have the largest difference between in-state tuition and salary potential.”</li>
-                    <li>”I want to see which states have the highest diversity rates within their universities.”</li>
+                    <li>"I want to identify which state has the cheapest out-of-state tuition."</li>
+                    <li>"I want to explore the universities in my state to see which ones have the largest difference between in-state tuition and salary potential."</li>
+                    <li>"I want to see which states have the highest diversity rates within their universities."</li>
                 </ul>
                 </p>
             <p>Although these domain tasks do not encompass the entirety of the tasks our visualizations will support, they represent a broad mix of the most relevant tasks. We want students to be able to identify the right university for them based on tuition costs, salary potential, and diversity rates so that they can maximize their experience across all stages of their college career.</p>
@@ -41,7 +41,17 @@
 
     <div>
         <h2>Background</h2>
-        <li>
+        <h3>Data</h3>
+        
+        <div class="subtext">
+            <p> It was very important that the data set we chose covered several attributes of college attendance. We realized through our research that finding data sets for granular costs of attendance would not be possible. Therefore, we pivoted to looking for data sets that not only aggregated costs across several universities but also provided information about other factors that may influence a student’s decision to attend a specific university.</p> 
+
+            <p> The raw data gathered for this project comes primarily from the US Department of Education but from other sources as well, such as Priceonomics.com, TuitionTracker.org, payscale.com, and the Chronicle of Higher Education. This raw data was initially collected and condensed by Jesse Mostipak, a Developer Advocate at Baseten, who then posted 5 different Excel files to Kaggle.</p>
+
+            <p> Some biases and shortcomings that we found within the data include the fact that only universities with 2-year and 4-year degree lengths were included, the diversity data is from 2014 (while tuition and fees data is from 2019) and does not specify what is meant by ”unknown” race nor breaks down the ”two or more races” category to capture specific biracial groups, and many colleges had to be removed since they were not listed on all three files that were used.</p>
+        </div>
+        
+        <li>    
             <a href="report\DS_4200_Project_Report.pdf">Report</a>
         </li>
         <li>
@@ -60,7 +70,9 @@
 
     <div>
         <h2>Acknowledgements</h2>
-        TODO: Cite resources used here   
+        <li>
+            <a href="https://www.kaggle.com/datasets/jessemostipak/college-tuition-diversity-and-pay">Raw Dataset</a>
+        </li>   
     </div>
 
     <!-- link to JavaScript file -->
