@@ -115,3 +115,131 @@ squares.filter(d => d.fill)
         .attr("dominant-baseline", "central")
         .text((d, i) => labels[i]);
 
+// Code for the bar charts below here
+// Frame
+const FRAME_HEIGHT = 500;
+const FRAME_WIDTH = 500;
+const MARGINS = { left: 50, right: 50, top: 50, bottom: 50 };
+
+// Height and widths for visualizations
+const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
+const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right;
+
+const FRAME1 = d3.select("#vis2")
+    .append("svg")
+    .attr("height", FRAME_HEIGHT)
+    .attr("width", FRAME_WIDTH)
+    .attr("class", "frame");
+
+function bar_chart_1() {
+
+    d3.csv("adamsstate.csv").then((data) => {
+
+        const AMOUNT_MAX = d3.max(data, (d) => { return parseInt(d["Adams State University"]); })
+        
+        // Define scale functions that maps our data values 
+        // (domain) to pixel values (range)
+        const X_SCALE3 = d3.scaleBand()
+            .domain(data.map((d) => { return d.category }))
+            .range([0, VIS_WIDTH])
+            .padding(0.25); // add some padding  
+
+        // scale function
+        const Y_SCALE3 = d3.scaleLinear()
+            .domain([0, AMOUNT_MAX])
+            .range([VIS_HEIGHT + 1, 0]);
+
+        //Categories to apply different style schemes
+        const z3 = d3.scaleOrdinal()
+            .domain(data.map(d => d.category))
+            .range(d3.schemeCategory10);
+
+        // Add Y axis
+        FRAME1.append("g")
+            .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top) + ")")
+            .call(d3.axisLeft(Y_SCALE3).ticks(10))
+            .attr("font-size", "10px");
+
+        // Add X axis
+        FRAME1.append("g")
+            .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top + VIS_HEIGHT) + ")")
+            .call(d3.axisBottom(X_SCALE3).ticks(10))
+            .attr("font-size", "10px");
+    
+        // Use X_SCALE3 to make bar chart
+        bar_points = FRAME1.selectAll("barchart")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar")
+            .attr("x", function (d) { return X_SCALE3(d.category) + MARGINS.left })
+            .attr("y", function (d) { return Y_SCALE3(d["Adams State University"]) + MARGINS.top })
+            .attr("width", 90)
+            .attr("height", d => { return (VIS_HEIGHT - Y_SCALE3(d["Adams State University"])) })
+            .style("fill", function (d) { return z3(d.category) });
+      
+    });
+
+}
+
+const FRAME2 = d3.select("#vis3")
+    .append("svg")
+    .attr("height", FRAME_HEIGHT)
+    .attr("width", FRAME_WIDTH)
+    .attr("class", "frame");
+
+function bar_chart_2() {
+
+d3.csv("agnesscott.csv").then((data) => {
+
+    const AMOUNT_MAX = d3.max(data, (d) => { return parseInt(d["Agnes Scott College"]); })
+
+    // Define scale functions that maps our data values 
+    // (domain) to pixel values (range)
+    const X_SCALE3 = d3.scaleBand()
+        .domain(data.map((d) => { return d.category }))
+        .range([0, VIS_WIDTH])
+        .padding(0.25); // add some padding  
+
+    // scale function
+    const Y_SCALE3 = d3.scaleLinear()
+        .domain([0, AMOUNT_MAX])
+        .range([VIS_HEIGHT + 1, 0]);
+
+    //Categories to apply different style schemes
+    const z3 = d3.scaleOrdinal()
+        .domain(data.map(d => d.category))
+        .range(d3.schemeCategory10);
+
+    // Add Y axis
+    FRAME2.append("g")
+        .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top) + ")")
+        .call(d3.axisLeft(Y_SCALE3).ticks(10))
+        .attr("font-size", "10px");
+
+    // Add X axis
+    FRAME2.append("g")
+        .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top + VIS_HEIGHT) + ")")
+        .call(d3.axisBottom(X_SCALE3).ticks(10))
+        .attr("font-size", "10px");
+
+    // Use X_SCALE3 to make bar chart
+    bar_points = FRAME2.selectAll("barchart")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", function (d) { return X_SCALE3(d.category) + MARGINS.left })
+        .attr("y", function (d) { return Y_SCALE3(d["Agnes Scott College"]) + MARGINS.top })
+        .attr("width", 90)
+        .attr("height", d => { return (VIS_HEIGHT - Y_SCALE3(d["Agnes Scott College"])) })
+        .style("fill", function (d) { return z3(d.category) });
+
+});
+
+}
+
+
+//Calling the graphs
+bar_chart_1();
+bar_chart_2();
