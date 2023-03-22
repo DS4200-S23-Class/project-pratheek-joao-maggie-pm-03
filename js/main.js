@@ -69,7 +69,7 @@ const TOOLTIP = d3.select("#vis1")
 
 // defines event handler function for a mouse moving
 function handleMousemove(event, d) {
-  TOOLTIP.html("average in-state tuition" + "<br>average out-of-state tuition")
+  TOOLTIP.html("Average In-State Tuition: " + "<br>Average Out-of-State Tuition: ")
       .style("left", (event.pageX + 10) + "px")
       .style("top", (event.pageY - 10) + "px")
       .style("opacity", 1); 
