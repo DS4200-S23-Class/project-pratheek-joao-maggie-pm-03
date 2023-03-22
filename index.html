@@ -2,39 +2,39 @@
 <html> 
 
 <head>
-    <meta charset=utf-8/>
+    <meta charset=utf-8 />
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="js/d3.v6.1.1/d3.min.js"></script>
 
-    <!-- D3 library -->
-    <script src='js/d3.v6.1.1/d3.min.js'></script>
-
-    <title>pm-03</title>
+    <title>college lifecycle</title>
 </head>
 
 
 <body>
 
-    <h1>A Holistic Look at the College Lifecycle</h1>
+    <h1> A Holistic Look at the College Lifecycle </h1>
 
     <div>
         <h2>Motivation & Use Case</h2>
-        
+
         <h3>Motivation</h3>
         <div class="subtext">
             <p>The purpose of this project is to support high school students in their decision-making process for choosing a university.</p>
-            <p>Select domain tasks include:
+            <p>
+                Select domain tasks include:
                 <ul>
-                    <li>"I want to identify which state has the cheapest out-of-state tuition."</li>
-                    <li>"I want to explore the universities in my state to see which ones have the largest difference between in-state tuition and salary potential."</li>
-                    <li>"I want to see which states have the highest diversity rates within their universities."</li>
+                    <li>”I want to identify which state has the cheapest out-of-state tuition.”</li>
+                    <li>”I want to explore the universities in my state to see which ones have the largest difference between in-state tuition and salary potential.”</li>
+                    <li>”I want to see which states have the highest diversity rates within their universities.”</li>
                 </ul>
-                </p>
+            </p>
             <p>Although these domain tasks do not encompass the entirety of the tasks our visualizations will support, they represent a broad mix of the most relevant tasks. We want students to be able to identify the right university for them based on tuition costs, salary potential, and diversity rates so that they can maximize their experience across all stages of their college career.</p>
         </div>
 
         <h3>Use Case</h3>
         <div class="subtext">
-            <p>For students in the United States deciding on which college to attend, we believe that there are three major factors, among others, to consider. These are cost of attendance, diversity of student body, and salary potential post-graduation [2]. These factors can vary widely among schools, and can offer insight into the college decision making process, the student’s experience during their attendance, and post-graduation opportunities. Our visualizations would aim to highlight the full experience of attendance and allow students to weigh their decision against the quality of life they could achieve after college. This use case holds relevance right now given the uncertainty of macroeconomic conditions [1]. As we are likely to approach a recession and consumer discretionary spending would constrict, it’s important to be aware of expected costs before committing to a university. The costs, salary potential, and diversity varies drastically between universities/colleges, therefore, being aware of the full picture is important when deciding which university to attend. Our target users would be high school students and their families who are in the process of looking at potential universities to attend. We would generate visualizations that aggregate these factors by state and institution type. We could potentially use color to highlight states with higher average costs. We will also provide the option to explore the map in more detail and compare 2 universities on a more granular level, comparing in-state and out-state tuition costs, salary potential, and diversity metrics.
+            <p>
+                For students in the United States deciding on which college to attend, we believe that there are three major factors, among others, to consider. These are cost of attendance, diversity of student body, and salary potential post-graduation [2]. These factors can vary widely among schools, and can offer insight into the college decision making process, the student’s experience during their attendance, and post-graduation opportunities. Our visualizations would aim to highlight the full experience of attendance and allow students to weigh their decision against the quality of life they could achieve after college. This use case holds relevance right now given the uncertainty of macroeconomic conditions [1]. As we are likely to approach a recession and consumer discretionary spending would constrict, it’s important to be aware of expected costs before committing to a university. The costs, salary potential, and diversity varies drastically between universities/colleges, therefore, being aware of the full picture is important when deciding which university to attend. Our target users would be high school students and their families who are in the process of looking at potential universities to attend. We would generate visualizations that aggregate these factors by state and institution type. We could potentially use color to highlight states with higher average costs. We will also provide the option to explore the map in more detail and compare 2 universities on a more granular level, comparing in-state and out-state tuition costs, salary potential, and diversity metrics.
             </p>
         </div>
     </div>
@@ -42,41 +42,72 @@
     <div>
         <h2>Background</h2>
         <h3>Data</h3>
-        
+
         <div class="subtext">
-            <p> It was very important that the data set we chose covered several attributes of college attendance. We realized through our research that finding data sets for granular costs of attendance would not be possible. Therefore, we pivoted to looking for data sets that not only aggregated costs across several universities but also provided information about other factors that may influence a student’s decision to attend a specific university.</p> 
+            <p> It was very important that the data set we chose covered several attributes of college attendance. We realized through our research that finding data sets for granular costs of attendance would not be possible. Therefore, we pivoted to looking for data sets that not only aggregated costs across several universities but also provided information about other factors that may influence a student’s decision to attend a specific university.</p>
 
             <p> The raw data gathered for this project comes primarily from the US Department of Education but from other sources as well, such as Priceonomics.com, TuitionTracker.org, payscale.com, and the Chronicle of Higher Education. This raw data was initially collected and condensed by Jesse Mostipak, a Developer Advocate at Baseten, who then posted 5 different Excel files to Kaggle.</p>
 
             <p> Some biases and shortcomings that we found within the data include the fact that only universities with 2-year and 4-year degree lengths were included, the diversity data is from 2014 (while tuition and fees data is from 2019) and does not specify what is meant by ”unknown” race nor breaks down the ”two or more races” category to capture specific biracial groups, and many colleges had to be removed since they were not listed on all three files that were used.</p>
         </div>
-        
-        <li>    
-            <a href="report\DS_4200_Project_Report.pdf">Report</a>
-        </li>
-        <li>
-            <a href="data\DS4200 PM-02 Dataset Final.csv">Dataset</a>
-        </li>
-        <li>
-            Add Link to demo video here
-        </li>
-          
+
+        <ul>
+            <li>
+                <a href="report\DS_4200_Project_Report.pdf">Report</a>
+            </li>
+            <li>
+                <a href="data\DS4200 PM-02 Dataset Final.csv">Dataset</a>
+            </li>
+            <li>
+                Add Link to demo video here
+            </li>
+        </ul>
+      
+
     </div>
+
 
     <div>
         <h2>Visualization</h2>
         <div id="vis1"></div>
+
+        <div id="2 columns">
+            <div class="row">
+
+                <div class="leftColumn">
+                    <h2> Adams State University Statistics </h2>
+                    <div id="vis2"></div>
+
+                </div>
+
+                <div class="rightColumn">
+                    <h2>Agnes Scott College Statistics</h2>
+                    <div id="vis3"></div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
     </div>
 
     <div>
         <h2>Acknowledgements</h2>
-        <li>
-            <a href="https://www.kaggle.com/datasets/jessemostipak/college-tuition-diversity-and-pay">Raw Dataset</a>
-        </li>   
+        <ul>
+            <li> <a href="https://gramener.github.io/d3js-playbook/manipulation.html">Data Manipulation </a></li>
+            <li> <a href="https://groups.google.com/g/d3-js/c/hXZNxWbp7IY?pli=1"> Filtering by Column </a></li>
+            <li> <a href="https://medium.com/@andybarefoot/making-a-map-using-d3-js-8aa3637304ee"> Making a Map D3 </a></li>
+            <li> <a href="https://www.kaggle.com/datasets/jessemostipak/college-tuition-diversity-and-pay">Raw Dataset</a>
+            </li>
+        </ul>
     </div>
 
-    <!-- link to JavaScript file -->
-    <script src='js/main.js'></script>
+    <!--
+        Link js file
+    -->
+    <script src="Script1.js"></script>
 </body>
 
 </html>
