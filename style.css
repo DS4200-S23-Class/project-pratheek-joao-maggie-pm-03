@@ -7,6 +7,21 @@ h1 {
     text-align: center;
 }
 
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.left-column {
+    width: 50%;
+    text-align: center;
+}
+  
+.right-column {
+    width: 50%;
+    text-align: center;
+}
+
 .subtext {
     font-size: 18px;
 }
