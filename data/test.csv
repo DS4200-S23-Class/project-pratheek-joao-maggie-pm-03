@@ -1,51 +1,613 @@
-﻿statecode,avg_tuition_oos,average_tuition_is
-AL,25699,8878
-AK,28130,7300
-AZ,30885,10302
-AR,26187,8184
-CA,63155,15498
-CO,35381,11252
-CT,46436,13808
-DE,25767,10484
-FL,36891,11891
-GA,34003,11239
-HI,32970,13279
-ID,20131,8352
-IL,48334,12085
-IN,47068,11706
-IA,40318,9418
-KS,28820,9044
-KY,32149,9100
-LA,24500,9163
-ME,36837,11323
-MD,45209,12771
-MA,62178,15029
-MI,35372,10021
-MN,50928,10188
-MS,21584,8805
-MO,31197,9564
-MT,33092,9289
-NE,28904,8402
-NV,47598,13357
-NH,45772,13004
-NJ,41716,13851
-NM,15421,8506
-NY,65039,15280
-NC,39250,11576
-ND,18391,7318
-OH,46922,11483
-OK,23853,7664
-OR,39848,11564
-PA,65706,14406
-RI,50640,14078
-SC,31508,9850
-SD,21787,7680
-TN,34104,9839
-TX,43606,11666
-UT,15797,8271
-VT,44582,11876
-VA,36301,11257
-WA,43521,11101
-WV,24873,10150
-WI,43031,9678
-WY,15720,10320
+﻿statecode,tuition_oos,tuition_is,early_pay,mid_pay,,college_name
+AL,25699,8878,44367,80800,,Adams State University
+AK,28130,7300,50300,90000,,Agnes Scott College
+AZ,30885,10302,47375,85275,,Alabama State University
+AR,26187,8184,43271,77564,,Alaska Pacific University
+CA,63155,15498,67800,124877,,Albany College of Pharmacy and Health Sciences
+CO,35381,11252,51970,93160,,Albertus Magnus College
+CT,46436,13808,54627,98487,,Albion College
+DE,25767,10484,51567,91400,,Alcorn State University
+FL,36891,11891,50587,91300,,Allen College
+GA,34003,11239,48850,87305,,Alma College
+HI,32970,13279,47200,84900,,Amherst College
+ID,20131,8352,48860,86820,,Andrews University
+IL,48334,12085,55525,101838,,Appalachian State University
+IN,47068,11706,53553,98080,,Arizona Christian University
+IA,40318,9418,48911,88321,,Arkansas Tech University
+KS,28820,9044,45959,82582,,Asbury University
+KY,32149,9100,43952,79391,,Auburn University
+LA,24500,9163,46814,85900,,Auburn University at Montgomery
+ME,36837,11323,48800,87729,,Augusta University
+MD,45209,12771,52058,93042,,Austin Peay State University
+MA,62178,15029,63519,116010,,Avila University
+MI,35372,10021,51805,93857,,Babson College
+MN,50928,10188,51467,94833,,Baker University
+MS,21584,8805,42043,75707,,Ball State University
+MO,31197,9564,48700,86873,,Barnard College
+MT,33092,9289,51800,95633,,Barry University
+NE,28904,8402,46130,82040,,Barton College
+NV,47598,13357,54000,95500,,Bastyr University
+NH,45772,13004,51111,91600,,Bates College
+NJ,41716,13851,54788,100600,,Baylor University
+NM,15421,8506,48933,90300,,Belhaven University
+NY,65039,15280,66531,123938,,Bellarmine University
+NC,39250,11576,49695,89245,,Bellevue University
+ND,18391,7318,46043,80814,,Belmont Abbey College
+OH,46922,11483,53780,99560,,Belmont University
+OK,23853,7664,45128,81428,,Beloit College
+OR,39848,11564,49835,90376,,Benedict College
+PA,65706,14406,62700,115680,,Benedictine College
+RI,50640,14078,55822,100744,,Bennington College
+SC,31508,9850,44124,79759,,Bentley University
+SD,21787,7680,47022,84811,,Berea College
+TN,34104,9839,47421,84747,,Berry College
+TX,43606,11666,56958,103708,,Black Hills State University
+UT,15797,8271,54350,98300,,Bloomfield College
+VT,44582,11876,49536,89545,,Boise State University
+VA,36301,11257,52222,93333,,Boston College
+WA,43521,11101,53507,97433,,Boston University
+WV,24873,10150,46720,84800,,Bowdoin College
+WI,43031,9678,49931,90369,,Bowie State University
+WY,15720,10320,52400,98800,,Bradley University
+,,,,,,Brandeis University
+,,,,,,Brescia University
+,,,,,,Brown University
+,,,,,,Bryant University
+,,,,,,Bucknell University
+,,,,,,Butler University
+,,,,,,California Institute of Technology
+,,,,,,Calvin College
+,,,,,,Cameron University
+,,,,,,Campbell University
+,,,,,,Campbellsville University
+,,,,,,Cardinal Stritch University
+,,,,,,Carleton College
+,,,,,,Carnegie Mellon University
+,,,,,,Carroll College
+,,,,,,Carroll University
+,,,,,,Carson-Newman University
+,,,,,,Carthage College
+,,,,,,Case Western Reserve University
+,,,,,,Catawba College
+,,,,,,Centenary College of Louisiana
+,,,,,,Central Baptist College
+,,,,,,Central Christian College of Kansas
+,,,,,,Central College
+,,,,,,Central Connecticut State University
+,,,,,,Central Michigan University
+,,,,,,Central Washington University
+,,,,,,Centre College
+,,,,,,Chadron State College
+,,,,,,Chaminade University of Honolulu
+,,,,,,Champlain College
+,,,,,,Charleston Southern University
+,,,,,,Christian Brothers University
+,,,,,,Christopher Newport University
+,,,,,,Claremont McKenna College
+,,,,,,Clark Atlanta University
+,,,,,,Clark University
+,,,,,,Clarke University
+,,,,,,Clarkson College
+,,,,,,Clarkson University
+,,,,,,Cleary University
+,,,,,,Clemson University
+,,,,,,Cleveland State University
+,,,,,,Coastal Carolina University
+,,,,,,Coe College
+,,,,,,Colby College
+,,,,,,Colby-Sawyer College
+,,,,,,Colgate University
+,,,,,,College for Creative Studies
+,,,,,,College of Charleston
+,,,,,,College of Saint Mary
+,,,,,,College of the Holy Cross
+,,,,,,Colorado Christian University
+,,,,,,Colorado College
+,,,,,,Colorado Mesa University
+,,,,,,Colorado School of Mines
+,,,,,,Columbia International University
+,,,,,,Columbus State University
+,,,,,,Connecticut College
+,,,,,,Converse College
+,,,,,,Corban University
+,,,,,,Cornell College
+,,,,,,Cornell University
+,,,,,,Cornish College of the Arts
+,,,,,,Covenant College
+,,,,,,Creighton University
+,,,,,,Cumberland University
+,,,,,,Dakota State University
+,,,,,,Dakota Wesleyan University
+,,,,,,Dartmouth College
+,,,,,,Davidson College
+,,,,,,Delaware State University
+,,,,,,Delta State University
+,,,,,,Denison University
+,,,,,,DePaul University
+,,,,,,DePauw University
+,,,,,,Dickinson College
+,,,,,,Dickinson State University
+,,,,,,Dillard University
+,,,,,,Dordt College
+,,,,,,Drake University
+,,,,,,Drew University
+,,,,,,Drexel University
+,,,,,,Drury University
+,,,,,,Duke University
+,,,,,,East Carolina University
+,,,,,,East Tennessee State University
+,,,,,,Eastern Connecticut State University
+,,,,,,Eastern Kentucky University
+,,,,,,Eastern Michigan University
+,,,,,,Eastern Oregon University
+,,,,,,Eastern Washington University
+,,,,,,Eckerd College
+,,,,,,Edgewood College
+,,,,,,Elon University
+,,,,,,Emory University
+,,,,,,Emporia State University
+,,,,,,Erskine College
+,,,,,,Fairfield University
+,,,,,,Fairmont State University
+,,,,,,Faulkner University
+,,,,,,Felician University
+,,,,,,Ferris State University
+,,,,,,Ferrum College
+,,,,,,Fisk University
+,,,,,,Florida Atlantic University
+,,,,,,Florida Institute of Technology
+,,,,,,Florida International University
+,,,,,,Florida State University
+,,,,,,Fordham University
+,,,,,,Fort Hays State University
+,,,,,,Fort Lewis College
+,,,,,,Francis Marion University
+,,,,,,Franklin Pierce University
+,,,,,,Freed-Hardeman University
+,,,,,,Friends University
+,,,,,,Frostburg State University
+,,,,,,George Fox University
+,,,,,,George Mason University
+,,,,,,Georgetown College
+,,,,,,Georgia Southern University
+,,,,,,Georgia State University
+,,,,,,Gettysburg College
+,,,,,,Goddard College
+,,,,,,Goldey-Beacom College
+,,,,,,Gonzaga University
+,,,,,,Goucher College
+,,,,,,Grambling State University
+,,,,,,Green Mountain College
+,,,,,,Grinnell College
+,,,,,,Gustavus Adolphus College
+,,,,,,Hamline University
+,,,,,,Hampden-Sydney College
+,,,,,,Hampton University
+,,,,,,Hanover College
+,,,,,,Harding University
+,,,,,,Harvey Mudd College
+,,,,,,Hastings College
+,,,,,,Haverford College
+,,,,,,Hawaii Pacific University
+,,,,,,Henderson State University
+,,,,,,Hendrix College
+,,,,,,High Point University
+,,,,,,Hofstra University
+,,,,,,Holy Cross College
+,,,,,,Hood College
+,,,,,,Hope College
+,,,,,,Huntingdon College
+,,,,,,Husson University
+,,,,,,Idaho State University
+,,,,,,Illinois Institute of Technology
+,,,,,,Illinois State University
+,,,,,,Illinois Wesleyan University
+,,,,,,Indiana State University
+,,,,,,Iowa State University
+,,,,,,Jackson State University
+,,,,,,Jacksonville State University
+,,,,,,Jacksonville University
+,,,,,,James Madison University
+,,,,,,Jefferson College of Health Sciences
+,,,,,,John Brown University
+,,,,,,John Carroll University
+,,,,,,Johns Hopkins University
+,,,,,,Kalamazoo College
+,,,,,,Kansas State University
+,,,,,,Kansas Wesleyan University
+,,,,,,Kean University
+,,,,,,Keene State College
+,,,,,,Kennesaw State University
+,,,,,,Kentucky Christian University
+,,,,,,Kentucky State University
+,,,,,,Kentucky Wesleyan College
+,,,,,,Kenyon College
+,,,,,,Kettering College
+,,,,,,Kettering University
+,,,,,,Knox College
+,,,,,,La Salle University
+,,,,,,Lafayette College
+,,,,,,Lake Forest College
+,,,,,,Lake Superior State University
+,,,,,,Lamar University
+,,,,,,Lander University
+,,,,,,Langston University
+,,,,,,Lawrence Technological University
+,,,,,,Lawrence University
+,,,,,,Lehigh University
+,,,,,,Lenoir-Rhyne University
+,,,,,,LeTourneau University
+,,,,,,Lewis & Clark College
+,,,,,,Lewis University
+,,,,,,Lewis-Clark State College
+,,,,,,Limestone College
+,,,,,,Lindenwood University
+,,,,,,Lindsey Wilson College
+,,,,,,Lipscomb University
+,,,,,,Longwood University
+,,,,,,Loras College
+,,,,,,Louisiana College
+,,,,,,Louisiana Tech University
+,,,,,,Loyola Marymount University
+,,,,,,Loyola University Chicago
+,,,,,,Loyola University Maryland
+,,,,,,Loyola University New Orleans
+,,,,,,Luther College
+,,,,,,Lyndon State College
+,,,,,,Lyon College
+,,,,,,Macalester College
+,,,,,,Maharishi University of Management
+,,,,,,Maine College of Art
+,,,,,,Maine Maritime Academy
+,,,,,,Manchester University
+,,,,,,Manhattan Christian College
+,,,,,,Manhattan College
+,,,,,,Marietta College
+,,,,,,Marquette University
+,,,,,,Marshall University
+,,,,,,Maryland Institute College of Art
+,,,,,,Marymount University
+,,,,,,Maryville College
+,,,,,,Maryville University of Saint Louis
+,,,,,,Massachusetts Institute of Technology
+,,,,,,Massachusetts Maritime Academy
+,,,,,,Mayville State University
+,,,,,,McDaniel College
+,,,,,,McNeese State University
+,,,,,,McPherson College
+,,,,,,MCPHS University
+,,,,,,Menlo College
+,,,,,,Mercer University
+,,,,,,Merrimack College
+,,,,,,Methodist University
+,,,,,,Michigan State University
+,,,,,,Michigan Technological University
+,,,,,,Mid-America Christian University
+,,,,,,MidAmerica Nazarene University
+,,,,,,Middle Tennessee State University
+,,,,,,Middlebury College
+,,,,,,Midland University
+,,,,,,Miles College
+,,,,,,Milligan College
+,,,,,,Millsaps College
+,,,,,,Milwaukee School of Engineering
+,,,,,,Minneapolis College of Art and Design
+,,,,,,Minot State University
+,,,,,,Mississippi College
+,,,,,,Mississippi State University
+,,,,,,Mississippi University for Women
+,,,,,,Mississippi Valley State University
+,,,,,,Missouri University of Science and Technology
+,,,,,,Monmouth University
+,,,,,,Montana Tech of the University of Montana
+,,,,,,Montclair State University
+,,,,,,Morehead State University
+,,,,,,Morehouse College
+,,,,,,Morningside College
+,,,,,,Mount Carmel College of Nursing
+,,,,,,Mount Marty College
+,,,,,,Mount Mercy University
+,,,,,,Muhlenberg College
+,,,,,,Multnomah University
+,,,,,,Murray State University
+,,,,,,Nebraska Wesleyan University
+,,,,,,New College of Florida
+,,,,,,New England College
+,,,,,,New England Institute of Technology
+,,,,,,New Jersey City University
+,,,,,,New Jersey Institute of Technology
+,,,,,,New Mexico Highlands University
+,,,,,,New Mexico Institute of Mining and Technology
+,,,,,,New York University
+,,,,,,Newberry College
+,,,,,,Newman University
+,,,,,,Nicholls State University
+,,,,,,North Carolina Wesleyan College
+,,,,,,North Central College
+,,,,,,Northeastern State University
+,,,,,,Northeastern University
+,,,,,,Northern Arizona University
+,,,,,,Northern Illinois University
+,,,,,,Northern Kentucky University
+,,,,,,Northern State University
+,,,,,,Northwest Christian University
+,,,,,,Northwest Missouri State University
+,,,,,,Northwest Nazarene University
+,,,,,,Northwestern Oklahoma State University
+,,,,,,Northwestern University
+,,,,,,Norwich University
+,,,,,,Notre Dame of Maryland University
+,,,,,,Nova Southeastern University
+,,,,,,Oakland University
+,,,,,,Oakwood University
+,,,,,,Oberlin College
+,,,,,,Oglethorpe University
+,,,,,,Ohio Northern University
+,,,,,,Ohio Wesleyan University
+,,,,,,Oklahoma Baptist University
+,,,,,,Oklahoma Christian University
+,,,,,,Oklahoma City University
+,,,,,,Oklahoma Panhandle State University
+,,,,,,Oklahoma Wesleyan University
+,,,,,,Old Dominion University
+,,,,,,Oral Roberts University
+,,,,,,Oregon Institute of Technology
+,,,,,,Oregon State University
+,,,,,,Ouachita Baptist University
+,,,,,,Pacific Lutheran University
+,,,,,,Pacific Northwest College of Art
+,,,,,,Pacific University
+,,,,,,Park University
+,,,,,,Peru State College
+,,,,,,Pfeiffer University
+,,,,,,Philander Smith College
+,,,,,,Pittsburg State University
+,,,,,,Plymouth State University
+,,,,,,Pomona College
+,,,,,,Portland State University
+,,,,,,Prairie View A&M University
+,,,,,,Presbyterian College
+,,,,,,Prescott College
+,,,,,,Princeton University
+,,,,,,Providence College
+,,,,,,Queens University of Charlotte
+,,,,,,Quinnipiac University
+,,,,,,Radford University
+,,,,,,Ramapo College of New Jersey
+,,,,,,Randolph College
+,,,,,,Reed College
+,,,,,,Regis University
+,,,,,,Rensselaer Polytechnic Institute
+,,,,,,Rhode Island College
+,,,,,,Rhode Island School of Design
+,,,,,,Rhodes College
+,,,,,,Rice University
+,,,,,,Rider University
+,,,,,,Ripon College
+,,,,,,Roanoke College
+,,,,,,Rockhurst University
+,,,,,,Rocky Mountain College
+,,,,,,Roger Williams University
+,,,,,,Rogers State University
+,,,,,,Rollins College
+,,,,,,Rose-Hulman Institute of Technology
+,,,,,,Rowan University
+,,,,,,Rust College
+,,,,,,Sacred Heart University
+,,,,,,Saginaw Valley State University
+,,,,,,Saint Anselm College
+,,,,,,Saint Joseph's College of Maine
+,,,,,,Saint Louis University
+,,,,,,Saint Martin's University
+,,,,,,Saint Mary's College of California
+,,,,,,Saint Michael's College
+,,,,,,Saint Peter's University
+,,,,,,Saint Xavier University
+,,,,,,Salisbury University
+,,,,,,Salve Regina University
+,,,,,,Samford University
+,,,,,,San Jose State University
+,,,,,,Santa Clara University
+,,,,,,Savannah College of Art and Design
+,,,,,,Seattle Pacific University
+,,,,,,Seattle University
+,,,,,,Seton Hall University
+,,,,,,Shenandoah University
+,,,,,,Shepherd University
+,,,,,,Shorter University
+,,,,,,Sierra Nevada College
+,,,,,,Smith College
+,,,,,,South Carolina State University
+,,,,,,South Dakota School of Mines and Technology
+,,,,,,South Dakota State University
+,,,,,,Southeast Missouri State University
+,,,,,,Southeastern Louisiana University
+,,,,,,Southeastern Oklahoma State University
+,,,,,,Southern Adventist University
+,,,,,,Southern Connecticut State University
+,,,,,,Southern Methodist University
+,,,,,,Southern Nazarene University
+,,,,,,Southern New Hampshire University
+,,,,,,Southern Oregon University
+,,,,,,Southern University at New Orleans
+,,,,,,Southern Vermont College
+,,,,,,Southern Wesleyan University
+,,,,,,Southwestern Oklahoma State University
+,,,,,,Spalding University
+,,,,,,Spelman College
+,,,,,,Spring Hill College
+,,,,,,St. Mary's University
+,,,,,,Stanford University
+,,,,,,Stephens College
+,,,,,,Stetson University
+,,,,,,Stevens Institute of Technology
+,,,,,,Stevenson University
+,,,,,,Stockton University
+,,,,,,Stonehill College
+,,,,,,Swarthmore College
+,,,,,,Tabor College
+,,,,,,Taylor University
+,,,,,,Tennessee State University
+,,,,,,Tennessee Technological University
+,,,,,,Texas Christian University
+,,,,,,Texas Tech University
+,,,,,,Thomas More College
+,,,,,,Thomas More College of Liberal Arts
+,,,,,,Tougaloo College
+,,,,,,Towson University
+,,,,,,Transylvania University
+,,,,,,Trevecca Nazarene University
+,,,,,,Trine University
+,,,,,,Trinity University
+,,,,,,Troy University
+,,,,,,Truman State University
+,,,,,,Tufts University
+,,,,,,Tuskegee University
+,,,,,,University of Alabama at Birmingham
+,,,,,,University of Arizona
+,,,,,,University of Arkansas at Little Rock
+,,,,,,University of Arkansas at Monticello
+,,,,,,University of Arkansas at Pine Bluff
+,,,,,,University of Bridgeport
+,,,,,,University of Central Arkansas
+,,,,,,University of Central Florida
+,,,,,,University of Central Missouri
+,,,,,,University of Central Oklahoma
+,,,,,,University of Charleston
+,,,,,,University of Chicago
+,,,,,,University of Connecticut
+,,,,,,University of Dallas
+,,,,,,University of Dayton
+,,,,,,University of Delaware
+,,,,,,University of Denver
+,,,,,,University of Detroit Mercy
+,,,,,,University of Dubuque
+,,,,,,University of Evansville
+,,,,,,University of Florida
+,,,,,,University of Georgia
+,,,,,,University of Hartford
+,,,,,,University of Hawaii at Hilo
+,,,,,,University of Houston
+,,,,,,University of Idaho
+,,,,,,University of Illinois at Chicago
+,,,,,,University of Illinois at Urbana-Champaign
+,,,,,,University of Indianapolis
+,,,,,,University of Iowa
+,,,,,,University of Jamestown
+,,,,,,University of Kansas
+,,,,,,University of Kentucky
+,,,,,,University of Louisiana at Lafayette
+,,,,,,University of Louisiana at Monroe
+,,,,,,University of Louisville
+,,,,,,University of Maine
+,,,,,,University of Maine at Farmington
+,,,,,,University of Maine at Fort Kent
+,,,,,,University of Maine at Machias
+,,,,,,University of Maine at Presque Isle
+,,,,,,University of Mary
+,,,,,,University of Memphis
+,,,,,,University of Miami
+,,,,,,University of Mississippi
+,,,,,,University of Mobile
+,,,,,,University of Montevallo
+,,,,,,University of Mount Union
+,,,,,,University of New England
+,,,,,,University of New Haven
+,,,,,,University of New Orleans
+,,,,,,University of North Alabama
+,,,,,,University of North Carolina at Chapel Hill
+,,,,,,University of North Carolina at Charlotte
+,,,,,,University of North Carolina School of the Arts
+,,,,,,University of North Dakota
+,,,,,,University of North Florida
+,,,,,,University of North Georgia
+,,,,,,University of Northern Colorado
+,,,,,,University of Northern Iowa
+,,,,,,University of Notre Dame
+,,,,,,University of Oregon
+,,,,,,University of Pennsylvania
+,,,,,,University of Pikeville
+,,,,,,University of Portland
+,,,,,,University of Puget Sound
+,,,,,,University of Rhode Island
+,,,,,,University of Richmond
+,,,,,,University of Rochester
+,,,,,,University of Saint Joseph
+,,,,,,University of San Diego
+,,,,,,University of San Francisco
+,,,,,,University of Science and Arts of Oklahoma
+,,,,,,University of Scranton
+,,,,,,University of Sioux Falls
+,,,,,,University of South Alabama
+,,,,,,University of South Dakota
+,,,,,,University of Southern California
+,,,,,,University of Southern Maine
+,,,,,,University of Southern Mississippi
+,,,,,,University of the Cumberlands
+,,,,,,University of the Ozarks
+,,,,,,University of Toledo
+,,,,,,University of Tulsa
+,,,,,,University of Utah
+,,,,,,University of Vermont
+,,,,,,University of West Alabama
+,,,,,,University of West Georgia
+,,,,,,University of Wisconsin-Parkside
+,,,,,,University of Wisconsin-Stout
+,,,,,,University of Wyoming
+,,,,,,Valdosta State University
+,,,,,,Valley City State University
+,,,,,,Valparaiso University
+,,,,,,Vanderbilt University
+,,,,,,Vermont Technical College
+,,,,,,Villanova University
+,,,,,,Virginia Commonwealth University
+,,,,,,Virginia Military Institute
+,,,,,,Virginia State University
+,,,,,,Viterbo University
+,,,,,,Wabash College
+,,,,,,Wake Forest University
+,,,,,,Walla Walla University
+,,,,,,Wartburg College
+,,,,,,Washburn University
+,,,,,,Washington State University
+,,,,,,Wayne State College
+,,,,,,Wayne State University
+,,,,,,Webb Institute
+,,,,,,Weber State University
+,,,,,,Webster University
+,,,,,,Wellesley College
+,,,,,,Wentworth Institute of Technology
+,,,,,,West Liberty University
+,,,,,,West Virginia State University
+,,,,,,West Virginia University
+,,,,,,West Virginia University Institute of Technology
+,,,,,,West Virginia Wesleyan College
+,,,,,,Western Carolina University
+,,,,,,Western Connecticut State University
+,,,,,,Western Kentucky University
+,,,,,,Western Michigan University
+,,,,,,Western New England University
+,,,,,,Western New Mexico University
+,,,,,,Western Oregon University
+,,,,,,Western State Colorado University
+,,,,,,Western Washington University
+,,,,,,Wheeling Jesuit University
+,,,,,,Whitman College
+,,,,,,Whitworth University
+,,,,,,Wichita State University
+,,,,,,Widener University
+,,,,,,Willamette University
+,,,,,,William Carey University
+,,,,,,William Jewell College
+,,,,,,William Paterson University of New Jersey
+,,,,,,William Penn University
+,,,,,,Williams College
+,,,,,,Winona State University
+,,,,,,Winthrop University
+,,,,,,Wisconsin Lutheran College
+,,,,,,Wittenberg University
+,,,,,,Wofford College
+,,,,,,Worcester Polytechnic Institute
+,,,,,,Xavier University of Louisiana
+,,,,,,Yale University
+,,,,,,Yeshiva University

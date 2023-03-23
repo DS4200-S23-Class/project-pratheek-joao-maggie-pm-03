@@ -31,6 +31,17 @@ h1 {
     text-align: center;
 }
 
+form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+label, select {
+  width: 250px;
+}
+
+
 .tooltip {
   position: absolute;
   background-color: white;

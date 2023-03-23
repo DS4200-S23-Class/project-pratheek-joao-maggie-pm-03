@@ -3,30 +3,8 @@ const svg = d3.select("#vis1")
     .attr("width", 1100)
     .attr("height", 800)
 
-const data = []
-for (let i = 0; i < 88; i++) {
-    if (i == 0
-        || (i == 7)
-        || (i >= 2 && i <= 4)
-        || (i >= 10 && i <= 13)
-        || (i >= 18 && i <= 21)
-        || (i >= 26 && i <= 31)
-        || (i >= 34 && i <= 38)
-        || (i >= 41 && i <= 46)
-        || (i >= 50 && i <= 54)
-        || (i >= 59 && i <= 62)
-        || (i >= 66 && i <= 69)
-        || (i == 71)
-        || (i >= 73 && i <= 76)
-        || (i >= 80 && i <= 81)
-        || (i == 83)) {
-        data.push({ id: i, fill: true });
-    } else {
-        data.push({ id: i, fill: false });
-    }
-}
 
-const data_text = []
+const dataArray = []
 for (let i = 0; i < 88; i++) {
     if (i == 0
         || (i == 7)
@@ -40,12 +18,12 @@ for (let i = 0; i < 88; i++) {
         || (i >= 59 && i <= 62)
         || (i >= 66 && i <= 69)
         || (i == 71)
-        || (i >= 73 && i <= 76)
+        || (i >= 73 && i <= 75)
         || (i >= 80 && i <= 81)
         || (i == 83)) {
-        data.push({ id: i, fill: true });
+        dataArray.push({ id: i, fill: true });
     } else {
-        data.push({ id: i, fill: true });
+        dataArray.push({ id: i, fill: false });
     }
 }
 
@@ -58,62 +36,145 @@ const labels = [
     "", "WI", "IL", "IN", "KY", "TN", "MS", "",
     "", "", "MI", "OH", "WV", "NC", "AL", "",
     "", "", "", "PA", "VA", "SC", "GA", "",
-    "", "", "NY", "NJ", "MD", "DC", "", "FL",
-    "", "VT", "MA", "CT", "DE", "", "", "",
+    "", "", "NY", "NJ", "DE", "MD", "", "FL",
+    "", "VT", "MA", "CT", "", "", "", "",
     "ME", "NH", "", "RI", "", "", "", ""];
 
-// selects the vis2 element and adds a class tooltip
-const TOOLTIP = d3.select("#vis1")
-                    .append("div")
-                      .attr("class", "tooltip"); 
+// load data from CSV file
+d3.csv("data/test.csv").then(function(collegeData) {
+
+    // create a mapping of state codes to tuition values
+    const oosTuitionMap = new Map(collegeData.map(d => [d.statecode, d.tuition_oos]));
+
+    const isTuitionMap = new Map(collegeData.map(d => [d.statecode, d.tuition_is]));
+
+    const earlyPayMap = new Map(collegeData.map(d => [d.statecode, d.early_pay]));
+
+    const midPayMap = new Map(collegeData.map(d => [d.statecode, d.mid_pay]));
+
+    // create an array of unique college names
+    const collegeNames = Array.from(new Set(collegeData.map(d => d.college_name)));
+
+    // selects the vis1 element and adds a class tooltip
+    const TOOLTIP = d3.select("#vis1")
+                        .append("div")
+                        .attr("class", "tooltip"); 
 
 // defines event handler function for a mouse moving
 function handleMousemove(event, d) {
-  TOOLTIP.html("Average In-State Tuition: " + "<br>Average Out-of-State Tuition: ")
-      .style("left", (event.pageX + 10) + "px")
-      .style("top", (event.pageY - 10) + "px")
-      .style("opacity", 1); 
+  // get the tuition value for the state code
+  const oosTuition = oosTuitionMap.get(labels[d.id]);
+  const isTuition = isTuitionMap.get(labels[d.id]);
+  const earlyPay = earlyPayMap.get(labels[d.id]);
+  const midPay = midPayMap.get(labels[d.id]);
+  TOOLTIP.html(`State: ${labels[d.id]}
+    <br><br>Tuition Costs:
+    <br>Average Out-of-State Tuition: $${oosTuition}
+    <br>Average In-State Tuition: $${isTuition}
+    <br><br> Salary Prospects:
+    <br>Average Early Career Pay: $${earlyPay}
+    <br>Average Mid Career Pay: $${midPay}`)
+    .style("left", (event.pageX + 10) + "px")
+    .style("top", (event.pageY - 10) + "px")
+    .style("opacity", 1); 
 }
 
-// defines event handler function for a mouse removal
-function handleMouseleave(event, d) {
-  d3.select(this)
-    .attr("fill", "lightblue")
+  // defines event handler function for a mouse removal
+  function handleMouseleave(event, d) {
+    d3.select(this)
+      .attr("fill", "lightblue")
     TOOLTIP.style("opacity", 0);
-} 
+  } 
 
 const squares = svg.selectAll("g")
-  .data(data)
+  .data(dataArray)
   .enter()
   .append("g");
 
 squares.append("rect")
-        .attr("class", d => d.fill ? "square lightblue" : "square")
-        .attr("x", (d, i) => Math.floor(i / 8) * 100)
-        .attr("y", (d, i) => (i % 8) * 100)
-        .attr("width", 100)
-        .attr("height", 100)
-        .attr("fill", d => d.fill ? "lightblue" : "white")
-        .attr("stroke", d => d.stroke ? "black" : "white")
-        .attr("stroke-width", 2);
+  .attr("class", d => d.fill ? "square lightblue" : "square")
+  .attr("x", (d, i) => Math.floor(i / 8) * 100)
+  .attr("y", (d, i) => (i % 8) * 100)
+  .attr("width", 100)
+  .attr("height", 100)
+  .attr("fill", d => d.fill ? "lightblue" : "white")
+  .attr("stroke", d => d.stroke ? "black" : "white")
+  .attr("stroke-width", 2);
 
-squares.selectAll(".lightblue")
-        .on("mousemove", handleMousemove)
-        .on("mouseleave", handleMouseleave)
-        .on("mouseover", function(d) {
-          d3.select(this).attr("fill", "orange");
-        })
-        .on("mouseout", function(d) {
-          d3.select(this).attr("fill", "lightblue");
-        });
+squares.append("text")
+  .attr("class", "state-text")
+  .text((d, i) => labels[i])
+  .attr("x", (d, i) => Math.floor(i / 8) * 100 + 50)
+  .attr("y", (d, i) => (i % 8) * 100 + 50)
+  .attr("text-anchor", "middle")
+  .attr("alignment-baseline", "middle")
+  .attr("fill", "black");
 
-squares.filter(d => d.fill)
-        .append("text")
-        .attr("x", (d, i) => Math.floor(i / 8) * 100 + 50)
-        .attr("y", (d, i) => (i % 8) * 100 + 50)
-        .attr("text-anchor", "middle")
-        .attr("dominant-baseline", "central")
-        .text((d, i) => labels[i]);
+  squares.selectAll(".lightblue")
+    .on("mousemove", handleMousemove)
+    .on("mouseleave", handleMouseleave)
+    .on("mouseover", function(d) {
+      d3.select(this).attr("fill", "orange");
+    })
+    .on("mouseout", function(d) {
+      d3.select(this).attr("fill", "lightblue");
+    });
+
+
+// drop down menu
+// selects the vis1 element and stores it as a constant 
+const dropDown = d3.select("#vis1");
+
+// appends the paragraph element to the right-column element
+dropDown.append("p")
+  .text("College Comparer")
+
+// appends the form element to the right-column element and stores it as a constant
+const form = dropDown.append("form")
+  .attr("id", "college-name");
+
+// appends the label element to the form element and stores it as a constant
+const collegeOne = form.append("label")
+  .attr("for", "first-college")
+  .text("Select the first college you wish to compare:");
+
+const selectOne = form.append("select")
+  .attr("id", "college-one-value");
+
+selectOne.selectAll("option")
+  .data(collegeNames)
+  .enter()
+  .append("option")
+    .attr("value", (d) => d)
+    .text((d) => d);
+
+// appends the label element to the form element and stores it as a constant
+const collegeTwo = form.append("label")
+  .attr("for", "second-college")
+  .text("Select the second college you wish to compare:");
+
+// appends the select element to the form element and stores it as a constant
+const selectTwo = form.append("select")
+  .attr("id", "college-two-value")
+
+// appends each Y-coordinate 1-9 to one option element
+// and updates the text values to reflect this
+selectTwo.selectAll("option")
+  .data(collegeNames)
+  .enter()
+  .append("option")
+    .attr("value", (d) => d)
+    .text((d) => d);
+
+// appends button element to the right-column element and stores it as a constant
+const button = dropDown.append("button")
+  .attr("id", "button")
+  .text("Compare!");
+
+// adds event listener for a mouse click on the button
+button.on("click", handleAddPoint);
+    
+});
 
 // Code for the bar charts below here
 // Frame
@@ -158,7 +219,7 @@ function bar_chart_1() {
         FRAME1.append("g")
             .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top) + ")")
             .call(d3.axisLeft(Y_SCALE3).ticks(10))
-            .attr("font-size", "10px");
+            .attr("font-size", "12px");
 
         // Add X axis
         FRAME1.append("g")
@@ -215,7 +276,7 @@ d3.csv("agnesscott.csv").then((data) => {
     FRAME2.append("g")
         .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top) + ")")
         .call(d3.axisLeft(Y_SCALE3).ticks(10))
-        .attr("font-size", "10px");
+        .attr("font-size", "12px");
 
     // Add X axis
     FRAME2.append("g")
@@ -234,9 +295,7 @@ d3.csv("agnesscott.csv").then((data) => {
         .attr("width", 90)
         .attr("height", d => { return (VIS_HEIGHT - Y_SCALE3(d["Agnes Scott College"])) })
         .style("fill", function (d) { return z3(d.category) });
-
-});
-
+    });
 }
 
 
