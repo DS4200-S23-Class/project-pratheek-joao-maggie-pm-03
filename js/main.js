@@ -194,7 +194,7 @@ const FRAME1 = d3.select("#vis2")
 
 function bar_chart_1() {
 
-    d3.csv("adamsstate.csv").then((data) => {
+    d3.csv("cutbardata.csv").then((data) => {
 
         const AMOUNT_MAX = d3.max(data, (d) => { return parseInt(d["Adams State University"]); })
         
@@ -251,7 +251,7 @@ const FRAME2 = d3.select("#vis3")
 
 function bar_chart_2() {
 
-d3.csv("agnesscott.csv").then((data) => {
+d3.csv("cutbardata.csv").then((data) => {
 
     const AMOUNT_MAX = d3.max(data, (d) => { return parseInt(d["Agnes Scott College"]); })
 
