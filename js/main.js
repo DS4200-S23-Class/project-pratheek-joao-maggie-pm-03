@@ -238,6 +238,51 @@ function bar_chart_1() {
             .attr("width", 90)
             .attr("height", d => { return (VIS_HEIGHT - Y_SCALE3(d["Adams State University"])) })
             .style("fill", function (d) { return z3(d.category) });
+
+
+
+             // selects the vis2 element and adds a class tooltip
+    const TOOLTIP = d3.select("#vis2")
+                        .append("div")
+                          .attr("class", "tooltip"); 
+
+    // defines event handler function for a mouse hover and mouse out
+    function handleMouse(event, d) {
+        if (event.type === "mouseover") {
+            d3.select(this)
+                .attr("stroke", "yellow")
+                .attr("stroke-width", "3px");
+        } else if (event.type === "mouseout") {
+            d3.select(this)
+                .attr("stroke", "none");
+        }
+    }
+
+    // attaches the mouseover and mouseout event listeners to the same function
+    d3.selectAll(".bar")
+        .on("mouseover", handleMouse)
+        .on("mouseout", handleMouse);
+
+    // defines event handler function for a mouse moving
+    function handleMousemove(event, d) {
+      TOOLTIP.html("Category: " + d.category + "<br>Amount: " + d.amount)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 10) + "px")
+          .style("opacity", 1); 
+    }
+
+    // defines event handler function for a mouse removal
+    function handleMouseleave(event, d) {
+      d3.select(this)
+        .attr("fill", "dodgerblue")
+        TOOLTIP.style("opacity", 0);
+    } 
+
+  // adds event listeners
+  FRAME1.selectAll("rect")
+        .on("mouseover", handleMouse)
+        .on("mousemove", handleMousemove)
+        .on("mouseleave", handleMouseleave);    
       
     });
 
@@ -295,6 +340,53 @@ d3.csv("cutbardata.csv").then((data) => {
         .attr("width", 90)
         .attr("height", d => { return (VIS_HEIGHT - Y_SCALE3(d["Agnes Scott College"])) })
         .style("fill", function (d) { return z3(d.category) });
+
+
+
+    // selects the vis2 element and adds a class tooltip
+    const TOOLTIP = d3.select("#vis3")
+                        .append("div")
+                          .attr("class", "tooltip"); 
+
+
+
+    // defines event handler function for a mouse hover and mouse out
+    function handleMouse(event, d) {
+        if (event.type === "mouseover") {
+            d3.select(this)
+                .attr("stroke", "yellow")
+                .attr("stroke-width", "3px");
+        } else if (event.type === "mouseout") {
+            d3.select(this)
+                .attr("stroke", "none");
+        }
+    }
+
+    // attaches the mouseover and mouseout event listeners to the same function
+    d3.selectAll(".bar")
+        .on("mouseover", handleMouse)
+        .on("mouseout", handleMouse);
+
+    // defines event handler function for a mouse moving
+    function handleMousemove(event, d) {
+      TOOLTIP.html("Category: " + d.category + "<br>Amount: " + d.amount)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 10) + "px")
+          .style("opacity", 1); 
+    }
+
+    // defines event handler function for a mouse removal
+    function handleMouseleave(event, d) {
+      d3.select(this)
+        .attr("fill", "dodgerblue")
+        TOOLTIP.style("opacity", 0);
+    } 
+
+  // adds event listeners
+  FRAME2.selectAll("rect")
+        .on("mouseover", handleMouse)
+        .on("mousemove", handleMousemove)
+        .on("mouseleave", handleMouseleave); 
     });
 }
 
