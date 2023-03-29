@@ -37,7 +37,11 @@ form {
   justify-content: space-between;
 }
 
-label, select {
+label, button {
+    font-size: 22px;
+}
+
+select {
   width: 250px;
 }
 
