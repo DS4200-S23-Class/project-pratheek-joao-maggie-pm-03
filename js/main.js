@@ -203,7 +203,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     // Frame
     const FRAME_HEIGHT = 600;
     const FRAME_WIDTH = 800;
-    const MARGINS = { left: 75, right: 75, top: 75, bottom: 75 };
+    const MARGINS = { left: 90, right: 90, top: 80, bottom: 80 };
 
     // Height and widths for visualizations
     const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
@@ -245,8 +245,11 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
 
             // removes X and Y axes
             FRAME1.select(".y-axis").remove();
-
             FRAME1.select(".x-axis").remove();
+
+            // removes X and Y labels
+            FRAME1.select(".y-label").remove();
+            FRAME1.select(".x-label").remove();
 
             // adds X and Y axes
             FRAME1.append("g")
@@ -260,6 +263,23 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top + VIS_HEIGHT) + ")")
                     .call(d3.axisBottom(X_SCALE).ticks(10))
                     .attr("font-size", "16px");
+
+            FRAME1.append("text")
+                    .attr("class", "x-label")
+                    .attr("text-anchor", "middle")
+                    .attr("x", MARGINS.left + (VIS_WIDTH / 2))
+                    .attr("y", MARGINS.top + VIS_HEIGHT + 60)
+                    .text("Categories")
+                    .attr("font-size", "18px");
+
+            FRAME1.append("text")
+                    .attr("class", "y-label")
+                    .attr("text-anchor", "middle")
+                    .attr("x", -MARGINS.top - (VIS_HEIGHT / 2))
+                    .attr("y", MARGINS.left - 70)
+                    .attr("transform", "rotate(-90)")
+                    .text("Amount ($)")
+                    .attr("font-size", "18px");
 
             // builds bar chart
             bar_data = FRAME1.selectAll("barchart")
@@ -353,8 +373,11 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
 
             // removes X and Y axis
             FRAME2.select(".y-axis").remove();
-
             FRAME2.select(".x-axis").remove();
+
+            // removes X and Y labels
+            FRAME2.select(".y-label").remove();
+            FRAME2.select(".x-label").remove();
 
             // adds X and Y axis
             FRAME2.append("g")
@@ -368,6 +391,23 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top + VIS_HEIGHT) + ")")
                     .call(d3.axisBottom(X_SCALE).ticks(10))
                     .attr("font-size", "16px");
+
+            FRAME2.append("text")
+                    .attr("class", "x-label")
+                    .attr("text-anchor", "middle")
+                    .attr("x", MARGINS.left + (VIS_WIDTH / 2))
+                    .attr("y", MARGINS.top + VIS_HEIGHT + 60)
+                    .text("Categories")
+                    .attr("font-size", "18px");
+
+            FRAME2.append("text")
+                    .attr("class", "y-label")
+                    .attr("text-anchor", "middle")
+                    .attr("x", -MARGINS.top - (VIS_HEIGHT / 2))
+                    .attr("y", MARGINS.left - 70)
+                    .attr("transform", "rotate(-90)")
+                    .text("Amount ($)")
+                    .attr("font-size", "18px");
 
             // builds bar chart
             bar_data = FRAME2.selectAll("barchart")

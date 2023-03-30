@@ -22,6 +22,10 @@ h1 {
     text-align: center;
 }
 
+.axis-label {
+    font-family: Arial;
+}
+
 .subtext {
     font-size: 18px;
 }
