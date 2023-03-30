@@ -2,7 +2,7 @@
 const svg = d3.select("#vis1")
     .append("svg")
     .attr("width", 1100)
-    .attr("height", 800)
+    .attr("height", 800);
 
 // fills in the squares in the desired positions
 const dataArray = []
@@ -89,9 +89,9 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
 
     // appends the data array to the element g
     const squares = svg.selectAll("g")
-    .data(dataArray)
-    .enter()
-    .append("g");
+                        .data(dataArray)
+                        .enter()
+                        .append("g");
 
     // creates the grid with the squares
     squares.append("rect")
@@ -131,7 +131,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
 
     // appends the paragraph element to the p element
     dropDown.append("p")
-                .text("College Comparer")
+                .text("College Comparer");
 
     // appends the form element to the dropDown constant
     const form = dropDown.append("form")
@@ -160,14 +160,14 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                             .text("Select the second college you wish to compare:");
 
     const selectTwo = form.append("select")
-                            .attr("id", "college-two-value")
+                            .attr("id", "college-two-value");
 
     selectTwo.selectAll("option")
                 .data(collegeNames)
                 .enter()
                 .append("option")
-                .attr("value", (d) => d)
-                .text((d) => d);
+                    .attr("value", (d) => d)
+                    .text((d) => d);
 
     // appends button element to the drop down
     const button = dropDown.append("button")
@@ -220,7 +220,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     function bar_chart_1(collegeOneValue) {
 
         // load data from CSV file
-        d3.csv("cutbardata.csv").then((data) => {
+        d3.csv("data/cutbardata.csv").then((data) => {
 
             // filters data including only selected college
             const collegeData = data.filter(d => d.college === collegeOneValue);
@@ -232,7 +232,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             const X_SCALE = d3.scaleBand()
                                 .domain(data.map((d) => { return d.category }))
                                 .range([0, VIS_WIDTH])
-                                .padding(0.25); // add some padding  
+                                .padding(0.25);
     
             const Y_SCALE = d3.scaleLinear()
                                 .domain([0, 160000])
@@ -328,7 +328,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     function bar_chart_2(collegeTwoValue) {
 
         // loads data from CSV file
-        d3.csv("cutbardata.csv").then((data) => {
+        d3.csv("data/cutbardata.csv").then((data) => {
 
             // filters data including only selected college
             const collegeData = data.filter(d => d.college === collegeTwoValue);
@@ -340,7 +340,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             const X_SCALE = d3.scaleBand()
                                 .domain(data.map((d) => { return d.category }))
                                 .range([0, VIS_WIDTH])
-                                .padding(0.25); // add some padding  
+                                .padding(0.25);  
 
             const Y_SCALE = d3.scaleLinear()
                                 .domain([0, 160000])
