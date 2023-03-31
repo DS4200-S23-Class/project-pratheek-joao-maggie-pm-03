@@ -51,6 +51,9 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     const earlyPayMap = new Map(collegeData.map(d => [d.state_code, d.avg_early_pay]));
     const midPayMap = new Map(collegeData.map(d => [d.state_code, d.avg_mid_pay]));
 
+    // print data in the console
+    console.log(oosTuitionMap);
+
     // creates an array of unique college names
     const collegeNames = Array.from(new Set(collegeData.map(d => d.university_name)));
 
@@ -67,6 +70,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
         const isTuition = isTuitionMap.get(labels[d.id]);
         const earlyPay = earlyPayMap.get(labels[d.id]);
         const midPay = midPayMap.get(labels[d.id]);
+
   
         TOOLTIP.html(`State: ${labels[d.id]}
         <br><br>Tuition Costs:
@@ -264,6 +268,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .call(d3.axisBottom(X_SCALE).ticks(10))
                     .attr("font-size", "16px");
 
+            // adds X and Y axis labels
             FRAME1.append("text")
                     .attr("class", "x-label")
                     .attr("text-anchor", "middle")
@@ -379,7 +384,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             FRAME2.select(".y-label").remove();
             FRAME2.select(".x-label").remove();
 
-            // adds X and Y axis
+            // adds X and Y axes
             FRAME2.append("g")
                     .attr("class", "y-axis")
                     .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top) + ")")
@@ -392,6 +397,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .call(d3.axisBottom(X_SCALE).ticks(10))
                     .attr("font-size", "16px");
 
+            // adds X and Y axis labels
             FRAME2.append("text")
                     .attr("class", "x-label")
                     .attr("text-anchor", "middle")
@@ -465,7 +471,3 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
         });
     }
 });
-
-// builds the graphs
-bar_chart_1(collegeOneValue);
-bar_chart_2(collegeTwoValue);
