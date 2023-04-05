@@ -3,15 +3,19 @@
 
 <head>
     <meta charset=utf-8 />
+    
+    <!-- link to style sheet and d3 library -->
     <link rel="stylesheet" href="style.css">
     <script src="js/d3.v6.1.1/d3.min.js"></script>
 
-    <title>college lifecycle</title>
+    <!-- HTML page title -->
+    <title>The College Lifecycle</title>
 </head>
 
 
 <body>
 
+    <!-- title -->
     <h1> A Holistic Look at the College Lifecycle </h1>
 
     <div>
@@ -34,7 +38,7 @@
         <h3>Use Case</h3>
         <div class="subtext">
             <p>
-                For students in the United States deciding on which college to attend, we believe that there are three major factors, among others, to consider. These are cost of attendance, diversity of student body, and salary potential post-graduation [2]. These factors can vary widely among schools, and can offer insight into the college decision making process, the student’s experience during their attendance, and post-graduation opportunities. Our visualizations would aim to highlight the full experience of attendance and allow students to weigh their decision against the quality of life they could achieve after college. This use case holds relevance right now given the uncertainty of macroeconomic conditions [1]. As we are likely to approach a recession and consumer discretionary spending would constrict, it’s important to be aware of expected costs before committing to a university. The costs, salary potential, and diversity varies drastically between universities/colleges, therefore, being aware of the full picture is important when deciding which university to attend. Our target users would be high school students and their families who are in the process of looking at potential universities to attend. We would generate visualizations that aggregate these factors by state and institution type. We could potentially use color to highlight states with higher average costs. We will also provide the option to explore the map in more detail and compare 2 universities on a more granular level, comparing in-state and out-state tuition costs, salary potential, and diversity metrics.
+                For students in the United States deciding on which college to attend, we believe that there are three major factors, among others, to consider. These are cost of attendance, diversity of student body, and salary potential post-graduation <a href="http://www.collegematchpoint.com/college-matchpoint-blog/2018/4/making-the-right-choice-how-students-decide-which-college-to-attend">(College MatchPoint)</a>. These factors can vary widely among schools, and can offer insight into the college decision making process, the student’s experience during their attendance, and post-graduation opportunities. Our visualizations would aim to highlight the full experience of attendance and allow students to weigh their decision against the quality of life they could achieve after college. This use case holds relevance right now given the uncertainty of macroeconomic conditions <a href="https://www.msci.com/www/blog-posts/four-scenarios-for-2023/03628512199#:~:text=Themacroeconomiclandscapefor2023,energysupplyandgeopoliticaltensions.">(MSCI)</a>. As we are likely to approach a recession and consumer discretionary spending would constrict, it’s important to be aware of expected costs before committing to a university. The costs, salary potential, and diversity varies drastically between universities/colleges, therefore, being aware of the full picture is important when deciding which university to attend. Our target users would be high school students and their families who are in the process of looking at potential universities to attend. We would generate visualizations that aggregate these factors by state and institution type. We could potentially use color to highlight states with higher average costs. We will also provide the option to explore the map in more detail and compare 2 universities on a more granular level, comparing in-state and out-state tuition costs, salary potential, and diversity metrics.
             </p>
         </div>
     </div>
@@ -51,7 +55,7 @@
             <p> Some biases and shortcomings that we found within the data include the fact that only universities with 2-year and 4-year degree lengths were included, the diversity data is from 2014 (while tuition and fees data is from 2019) and does not specify what is meant by ”unknown” race nor breaks down the ”two or more races” category to capture specific biracial groups, and many colleges had to be removed since they were not listed on all three files that were used.</p>
         </div>
 
-        <ul>
+        <ul class="subtext">
             <li>
                 <a href="report\DS_4200_Project_Paper.pdf">Report</a>
             </li>
@@ -76,39 +80,40 @@
 
         <div class="container">
 
+                <!-- div for left-column vis -->
                 <div class="left-column">
                     <h4 id="header-left"></h4>
                     <div id="vis2"></div>
 
                 </div>
 
+                <!-- div for right-column vis -->
                 <div class="right-column">
                     <h4 id="header-right"></h4>
                     <div id="vis3"></div>
 
             </div>
 
-<!-- To do:
-- Make search bar for dropdown
-- Make diversity pie charts for colleges -->
-
         </div>
     </div>
 
     <div>
         <h2>Acknowledgements</h2>
-        <ul>
-            <li> <a href="https://gramener.github.io/d3js-playbook/manipulation.html">Data Manipulation </a></li>
-            <li> <a href="https://groups.google.com/g/d3-js/c/hXZNxWbp7IY?pli=1"> Filtering by Column </a></li>
-            <li> <a href="https://medium.com/@andybarefoot/making-a-map-using-d3-js-8aa3637304ee"> Making a Map D3 </a></li>
-            <li> <a href="https://www.kaggle.com/datasets/jessemostipak/college-tuition-diversity-and-pay">Raw Dataset</a>
-            </li>
+
+        <!-- sources -->
+        <ul class="subtext">
+            <li> <a href="https://gramener.github.io/d3js-playbook/d3intro.html">Basics of D3</a></li>
+            <li> <a href="https://gramener.github.io/d3js-playbook/manipulation.html">Data Manipulation</a></li>
+            <li> <a href="https://groups.google.com/g/d3-js/c/hXZNxWbp7IY?pli=1"> Filtering by Column</a></li>
+            <li> <a href="https://medium.com/@andybarefoot/making-a-map-using-d3-js-8aa3637304ee">Making a Map D3</a></li>
+            <li> <a href="https://d3-graph-gallery.com/graph/basic_datamanipulation.html">Common Data Manipulation Tasks</a></li>
+            <li> <a href="https://gramener.github.io/d3js-playbook/barchart.html">Bar Charts in D3</a></li>
+            <li> <a href="https://d3-graph-gallery.com/graph/interactivity_tooltip.html">Tooltips in D3</a></li>
+            <li> <a href="https://www.kaggle.com/datasets/jessemostipak/college-tuition-diversity-and-pay">Raw Dataset</a></li>
         </ul>
     </div>
 
-    <!--
-        Link js file
-    -->
+    <!--Link js file-->
     <script src="js/main.js"></script>
 </body>
 
