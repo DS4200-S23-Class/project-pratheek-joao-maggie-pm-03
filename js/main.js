@@ -200,14 +200,14 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
         FRAME2.selectAll(".bar").remove();
 
         // creates bar charts for the selected colleges
-        bar_chart_1(collegeOneValue);
-        bar_chart_2(collegeTwoValue);
+        bar_chart_1(collegeOneValue, collegeTwoValue);
+        bar_chart_2(collegeTwoValue, collegeOneValue);
     }
 
     // Frame
     const FRAME_HEIGHT = 600;
     const FRAME_WIDTH = 800;
-    const MARGINS = { left: 90, right: 90, top: 80, bottom: 80 };
+    const MARGINS = { left: 100, right: 100, top: 100, bottom: 100 };
 
     // Height and widths for visualizations
     const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
@@ -220,23 +220,35 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                         .attr("width", FRAME_WIDTH)
                         .attr("class", "frame");
 
+    // creates frame for third vis
+    const FRAME2 = d3.select("#vis3")
+                        .append("svg")
+                        .attr("height", FRAME_HEIGHT)
+                        .attr("width", FRAME_WIDTH)
+                        .attr("class", "frame");
+
+    // selects the vis2 element and adds a class tooltip
+    const TOOLTIP_LEFT = d3.select("#vis2")
+                        .append("div")
+                        .attr("class", "tooltip"); 
+
+    // selects the vis3 element and adds a class tooltip
+    const TOOLTIP_RIGHT = d3.select("#vis3")
+                        .append("div")
+                        .attr("class", "tooltip"); 
+
     // creates bar chart in left column
-    function bar_chart_1(collegeOneValue) {
+    function bar_chart_1(collegeOneValue, collegeTwoValue) {
 
         // load data from CSV file
         d3.csv("data/cutbardata.csv").then((data) => {
-
-            // filters data including only selected college
-            const collegeData = data.filter(d => d.college === collegeOneValue);
-
-            const AMOUNT_MAX = d3.max(data, (d) => { return parseInt(d[collegeOneValue]); })
 
             // defines scale functions that map data values 
             // (domain) to pixel values (range)
             const X_SCALE = d3.scaleBand()
                                 .domain(data.map((d) => { return d.category }))
                                 .range([0, VIS_WIDTH])
-                                .padding(0.25);
+                                .padding(0.35);
     
             const Y_SCALE = d3.scaleLinear()
                                 .domain([0, 160000])
@@ -287,7 +299,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .attr("font-size", "18px");
 
             // builds bar chart
-            bar_data = FRAME1.selectAll("barchart")
+            bar_data = FRAME1.selectAll(".bar")
                                 .data(data)
                                 .enter()
                                 .append("rect")
@@ -296,78 +308,90 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                                 .attr("y", function (d) { return Y_SCALE(d[collegeOneValue]) + MARGINS.top })
                                 .attr("width", 90)
                                 .attr("height", d => { return VIS_HEIGHT - Y_SCALE(d[collegeOneValue]) })
-                                .attr("fill", d => { return z3(d.category) });
-
-            // selects the vis2 element and adds a class tooltip
-            const TOOLTIP = d3.select("#vis2")
-                                .append("div")
-                                .attr("class", "tooltip"); 
+                                .attr("fill", d => { return z3(d.category) })
+                                .on("mousemove", function(event, d) {
+                                    handleMousemove(event, d, collegeOneValue, collegeTwoValue);
+                                })
+                                .on("mouseleave", handleMouseleave);
 
             // defines event handler function for a mouse hover and mouse leave
             function handleMouse(event, d) {
-                if (event.type === "mouseover") {
-                    d3.select(this)
-                        .attr("stroke", "black")
-                        .attr("stroke-width", "3px");
+            if (event.type === "mouseover") {
+                d3.select(this)
+                    .attr("stroke", "black")
+                    .attr("stroke-width", "5px");
                 } else if (event.type === "mouseout") {
                     d3.select(this)
                         .attr("stroke", "none");
-                }
+                    }
             }
 
-            // attaches the event listeners to the bar class
-            d3.selectAll(".bar")
-                .on("mouseover", handleMouse)
-                .on("mouseout", handleMouse);
-
             // defines event handler function for a mouse move
-            function handleMousemove(event, d) {
-                TOOLTIP.html("Category: " + d.category + "<br>" + 
-                    "Amount: " + d3.format(",")(d[collegeOneValue]))
-                .style("left", (event.pageX + 10) + "px")
-                .style("top", (event.pageY - 10) + "px")
-                .style("opacity", 1);
-                }
+            function handleMousemove(event, d, collegeOneValue, collegeTwoValue) {
 
-            // defines event handler function for a mouse removal
-            function handleMouseleave(event, d) {
-                TOOLTIP.style("opacity", 0);
-            } 
+                // show tooltip for left chart if the corresponding bar is being hovered over
+                if (d.category === FRAME1.selectAll("#vis2 .bar")
+                                            .filter(function(e) { 
+                                                return e.category === d.category && e[collegeOneValue] === d[collegeOneValue]; }).data()[0].category) {
+                                                    TOOLTIP_LEFT.html("Category: " + d.category + "<br>" +
+                                                        "Amount: " + d3.format(",")(d[collegeOneValue]))
+                                                                        .style("left", "360px")
+                                                                        .style("top", "2200px")
+                                                                        .style("opacity", 1);
+                                                }
 
-            // adds event listeners
-            FRAME1.selectAll("rect")
-                    .on("mouseover", handleMouse)
-                    .on("mousemove", handleMousemove)
-                    .on("mouseleave", handleMouseleave);
-        });
+                // highlight corresponding bar in right chart if the corresponding bar is being hovered over
+                if (d.category === FRAME2.selectAll("#vis3 .bar")
+                                            .filter(function(e) { 
+                                                return e.category === d.category && e[collegeTwoValue] === d[collegeTwoValue]; }).data()[0].category) {
+                                                FRAME2.selectAll("#vis3 .bar")
+                                                        .filter(function(e) { 
+                                                            return e.category === d.category && e[collegeTwoValue] === d[collegeTwoValue]; })
+                                                        .attr("stroke", "black")
+                                                        .attr("stroke-width", "5px");
+
+                                                // show tooltip for right chart
+                                                const leftData = data.find(e => e.category === d.category);
+                                                TOOLTIP_RIGHT.html("Category: " + leftData.category + "<br>" + 
+                                                    "Amount: " + d3.format(",")(leftData[collegeTwoValue]))
+                                                                    .style("left", "1300px")
+                                                                    .style("top", "2200px")
+                                                                    .style("opacity", 1);
+                                                }
+        }
+
+        function handleMouseleave(event, d) {
+            // hide tooltip for left chart
+            TOOLTIP_LEFT.style("opacity", 0);
+
+            // remove highlight from right chart
+            FRAME2.selectAll(".bar")
+                .attr("stroke", "none");
+
+            // hide tooltip for right chart
+            TOOLTIP_RIGHT.style("opacity", 0);
+        }
+
+        FRAME1.selectAll(".bar")
+                .on("mousemove", function(event, d) {
+                    handleMousemove(event, d, collegeOneValue, collegeTwoValue); })
+                .on("mouseleave", handleMouseleave); });
     }
 
-    // creates frame for third vis
-    const FRAME2 = d3.select("#vis3")
-                        .append("svg")
-                        .attr("height", FRAME_HEIGHT)
-                        .attr("width", FRAME_WIDTH)
-                        .attr("class", "frame");
-
     // creates bar chart in right column
-    function bar_chart_2(collegeTwoValue) {
+    function bar_chart_2(collegeTwoValue, collegeOneValue) {
 
         // loads data from CSV file
         d3.csv("data/cutbardata.csv").then((data) => {
 
-            // filters data including only selected college
-            const collegeData = data.filter(d => d.college === collegeTwoValue);
-
-            const AMOUNT_MAX = d3.max(data, (d) => { return parseInt(d[collegeTwoValue]); })
-
             // defines scale functions that map data values 
             // (domain) to pixel values (range)
-            const X_SCALE = d3.scaleBand()
+            const X_SCALE_2 = d3.scaleBand()
                                 .domain(data.map((d) => { return d.category }))
                                 .range([0, VIS_WIDTH])
-                                .padding(0.25);  
+                                .padding(0.35);  
 
-            const Y_SCALE = d3.scaleLinear()
+            const Y_SCALE_2 = d3.scaleLinear()
                                 .domain([0, 160000])
                                 .range([VIS_HEIGHT + 1, 0]);
 
@@ -388,13 +412,13 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             FRAME2.append("g")
                     .attr("class", "y-axis")
                     .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top) + ")")
-                    .call(d3.axisLeft(Y_SCALE).ticks(10))
+                    .call(d3.axisLeft(Y_SCALE_2).ticks(10))
                     .attr("font-size", "14px");
 
             FRAME2.append("g")
                     .attr("class", "x-axis")
                     .attr("transform", "translate(" + MARGINS.left + "," + (MARGINS.top + VIS_HEIGHT) + ")")
-                    .call(d3.axisBottom(X_SCALE).ticks(10))
+                    .call(d3.axisBottom(X_SCALE_2).ticks(10))
                     .attr("font-size", "16px");
 
             // adds X and Y axis labels
@@ -416,21 +440,20 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .attr("font-size", "18px");
 
             // builds bar chart
-            bar_data = FRAME2.selectAll("barchart")
+            bar_data = FRAME2.selectAll(".bar")
                                 .data(data)
                                 .enter()
                                 .append("rect")
                                 .attr("class", "bar")
-                                .attr("x", function (d) { return X_SCALE(d.category) + MARGINS.left })
-                                .attr("y", function (d) { return Y_SCALE(d[collegeTwoValue]) + MARGINS.top })
+                                .attr("x", function (d) { return X_SCALE_2(d.category) + MARGINS.left })
+                                .attr("y", function (d) { return Y_SCALE_2(d[collegeTwoValue]) + MARGINS.top })
                                 .attr("width", 90)
-                                .attr("height", d => { return (VIS_HEIGHT - Y_SCALE(d[collegeTwoValue])) })
-                                .style("fill", function (d) { return z3(d.category)});
-
-            // selects the vis3 element and adds a class tooltip
-            const TOOLTIP = d3.select("#vis3")
-                                .append("div")
-                                .attr("class", "tooltip"); 
+                                .attr("height", d => { return (VIS_HEIGHT - Y_SCALE_2(d[collegeTwoValue])) })
+                                .attr("fill", d => { return z3(d.category) })
+                                .on("mousemove", function(event, d) {
+                                    handleMousemove(event, d, collegeTwoValue, collegeOneValue);
+                                })
+                                .on("mouseleave", handleMouseleave);
 
             // defines event handler function for a mouse hover and mouse leave
             function handleMouse(event, d) {
@@ -450,24 +473,53 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                 .on("mouseout", handleMouse);
 
             // defines event handler function for a mouse move
-            function handleMousemove(event, d) {
-                TOOLTIP.html("Category: " + d.category + "<br>" + 
-                    "Amount: " + d3.format(",")(d[collegeTwoValue]))
-                .style("left", (event.pageX + 10) + "px")
-                .style("top", (event.pageY - 10) + "px")
-                .style("opacity", 1);
+            function handleMousemove(event, d, collegeTwoValue, collegeOneValue) {
+
+            // highlight corresponding bar in left chart if the corresponding bar is being hovered over
+                if (d.category === FRAME1.selectAll("#vis2 .bar")
+                    .filter(function(e) { 
+                        return e.category === d.category && e[collegeOneValue] === d[collegeOneValue]; }).data()[0].category) {
+                            FRAME1.selectAll("#vis2 .bar")
+                                    .filter(function(e) { 
+                                        return e.category === d.category && e[collegeOneValue] === d[collegeOneValue]; })
+                                    .attr("stroke", "black")
+                                    .attr("stroke-width", "5px");
+
+                        // show tooltip for right chart
+                        TOOLTIP_LEFT.html("Category: " + d.category + "<br>" + 
+                            "Amount: " + d3.format(",")(d[collegeOneValue]))
+                                        .style("left", "360px")
+                                        .style("top", "2200px")
+                                        .style("opacity", 1);
+    
+                        // show tooltip for left chart
+                        const rightData = data.find(e => e.category === d.category);
+                        TOOLTIP_RIGHT.html("Category: " + rightData.category + "<br>" + 
+                            "Amount: " + d3.format(",")(rightData[collegeTwoValue]))
+                                        .style("left", "1300px")
+                                        .style("top", "2200px")
+                                        .style("opacity", 1);
+                        }
             }
 
             // defines event handler function for a mouse removal
             function handleMouseleave(event, d) {
-                TOOLTIP.style("opacity", 0);
-            }    
+            // remove highlight from left chart
+            FRAME1.selectAll(".bar")
+                .attr("stroke", "none");
+
+            // hide tooltip for right chart
+            TOOLTIP_LEFT.style("opacity", 0);
+
+            // hide tooltip for left chart
+            TOOLTIP_RIGHT.style("opacity", 0);
+            
+            }  
 
             // adds event listeners
-            FRAME2.selectAll("rect")
-                    .on("mouseover", handleMouse)
-                    .on("mousemove", handleMousemove)
-                    .on("mouseleave", handleMouseleave); 
-        });
+            FRAME2.selectAll(".bar")
+                    .on("mousemove", function(event, d) {
+                        handleMousemove(event, d, collegeTwoValue, collegeOneValue); })
+                    .on("mouseleave", handleMouseleave); });
     }
 });
