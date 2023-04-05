@@ -4,7 +4,7 @@ const svg = d3.select("#vis1")
     .attr("width", 1100)
     .attr("height", 800);
 
-// fills in the squares in the desired positions
+// fills in squares in desired positions
 const dataArray = []
 for (let i = 0; i < 88; i++) {
     if (i == 0
@@ -51,13 +51,13 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     const earlyPayMap = new Map(collegeData.map(d => [d.state_code, d.avg_early_pay]));
     const midPayMap = new Map(collegeData.map(d => [d.state_code, d.avg_mid_pay]));
 
-    // print data in the console
+    // prints data in console
     console.log(oosTuitionMap);
 
     // creates an array of unique college names
     const collegeNames = Array.from(new Set(collegeData.map(d => d.university_name)));
 
-    // selects the vis1 element and adds a class tooltip
+    // selects vis1 element and adds a class tooltip
     const TOOLTIP = d3.select("#vis1")
                         .append("div")
                         .attr("class", "tooltip"); 
@@ -65,13 +65,12 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     // defines event handler function for a mouse move
     function handleMousemove(event, d) {
   
-        // gets the average tuition and salary values for the state code
+        // gets average tuition and salary values for matching state code
         const oosTuition = oosTuitionMap.get(labels[d.id]);
         const isTuition = isTuitionMap.get(labels[d.id]);
         const earlyPay = earlyPayMap.get(labels[d.id]);
         const midPay = midPayMap.get(labels[d.id]);
 
-  
         TOOLTIP.html(`State: ${labels[d.id]}
         <br><br>Tuition Costs:
         <br>Average Out-of-State Tuition: $${oosTuition}
@@ -91,13 +90,13 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
         TOOLTIP.style("opacity", 0);
     } 
 
-    // appends the data array to the element g
+    // appends data array to element g
     const squares = svg.selectAll("g")
                         .data(dataArray)
                         .enter()
                         .append("g");
 
-    // creates the grid with the squares
+    // creates grid
     squares.append("rect")
             .attr("class", d => d.fill ? "square lightblue" : "square")
             .attr("x", (d, i) => Math.floor(i / 8) * 100)
@@ -108,7 +107,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             .attr("stroke", d => d.stroke ? "black" : "white")
             .attr("stroke-width", 2);
 
-    // appends the state codes to each square
+    // appends state codes to each square
     squares.append("text")
             .attr("class", "state-text")
             .text((d, i) => labels[i])
@@ -130,28 +129,28 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     });
 
     // drop down menu
-    // selects the vis1 element and stores it as a constant 
+    // selects vis1 element and stores it as a constant 
     const dropDown = d3.select("#vis1");
 
-    // appends the paragraph element to the p element
-    dropDown.append("p")
+    // appends h4 element to vis1
+    dropDown.append("h4")
                 .text("College Comparer");
 
-    // appends the form element to the dropDown constant
+    // appends form element to vis1
     const form = dropDown.append("form")
                             .attr("id", "college-name");
 
-    // appends the label element to the form element
+    // appends label element to form element
     // adds text for context
     const collegeOne = form.append("label")
                             .attr("for", "first-college")
                             .text("Select the first college you wish to compare:");
     
-    // appends the select element to the form element
+    // appends select element to form element
     const selectOne = form.append("select")
                             .attr("id", "college-one-value");
 
-    // adds the college names as options of the drop down
+    // adds college names as options of drop down
     selectOne.selectAll("option")
                 .data(collegeNames)
                 .enter()
@@ -173,12 +172,14 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .attr("value", (d) => d)
                     .text((d) => d);
 
-    // appends button element to the drop down
+    // appends button element to drop down
     const button = dropDown.append("button")
                             .attr("id", "button")
                             .text("Compare !");
 
-    // adds event listener for a click on the button
+
+
+    // adds event listener for a click on button
     button.on("click", handleCompareColleges);
 
     // event handler for mouse click
@@ -195,13 +196,13 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
         headerLeft.text(`${collegeOneValue}`);
         headerRight.text(`${collegeTwoValue}`);
 
-        // removes the previous bar charts
+        // removes previous bar charts
         FRAME1.selectAll(".bar").remove();
         FRAME2.selectAll(".bar").remove();
 
-        // creates bar charts for the selected colleges
+        // creates bar charts for selected colleges
         bar_chart_1(collegeOneValue, collegeTwoValue);
-        bar_chart_2(collegeTwoValue, collegeOneValue);
+        bar_chart_2(collegeOneValue, collegeTwoValue);
     }
 
     // Frame
@@ -227,15 +228,15 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                         .attr("width", FRAME_WIDTH)
                         .attr("class", "frame");
 
-    // selects the vis2 element and adds a class tooltip
+    // selects vis2 element and adds a class tooltip-2
     const TOOLTIP_LEFT = d3.select("#vis2")
                         .append("div")
-                        .attr("class", "tooltip"); 
+                        .attr("class", "tooltip-2"); 
 
-    // selects the vis3 element and adds a class tooltip
+    // selects vis3 element and adds a class tooltip-2
     const TOOLTIP_RIGHT = d3.select("#vis3")
                         .append("div")
-                        .attr("class", "tooltip"); 
+                        .attr("class", "tooltip-2"); 
 
     // creates bar chart in left column
     function bar_chart_1(collegeOneValue, collegeTwoValue) {
@@ -329,57 +330,47 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             // defines event handler function for a mouse move
             function handleMousemove(event, d, collegeOneValue, collegeTwoValue) {
 
-                // show tooltip for left chart if the corresponding bar is being hovered over
-                if (d.category === FRAME1.selectAll("#vis2 .bar")
-                                            .filter(function(e) { 
-                                                return e.category === d.category && e[collegeOneValue] === d[collegeOneValue]; }).data()[0].category) {
-                                                    TOOLTIP_LEFT.html("Category: " + d.category + "<br>" +
-                                                        "Amount: " + d3.format(",")(d[collegeOneValue]))
-                                                                        .style("left", "360px")
-                                                                        .style("top", "2200px")
-                                                                        .style("opacity", 1);
-                                                }
+                TOOLTIP_LEFT.html("Category: " + d.category + "<br>" +
+                                    "Amount ($): " + d3.format(",")(d[collegeOneValue]))
+                                                    .style("opacity", 1);
+                
+                // selects right bar chart and adds border to matching left bar 
+                d3.select("#vis3")
+                    .selectAll(".bar")
+                        .filter(function(e) {
+                            return e.category === d.category && e[collegeTwoValue] === d[collegeTwoValue]; })
+                        .attr("stroke", "black")
+                        .attr("stroke-width", "5px");
 
-                // highlight corresponding bar in right chart if the corresponding bar is being hovered over
-                if (d.category === FRAME2.selectAll("#vis3 .bar")
-                                            .filter(function(e) { 
-                                                return e.category === d.category && e[collegeTwoValue] === d[collegeTwoValue]; }).data()[0].category) {
-                                                FRAME2.selectAll("#vis3 .bar")
-                                                        .filter(function(e) { 
-                                                            return e.category === d.category && e[collegeTwoValue] === d[collegeTwoValue]; })
-                                                        .attr("stroke", "black")
-                                                        .attr("stroke-width", "5px");
+                // shows tooltip for right chart
+                const rightData = data.find(e => e.category === d.category);
+                TOOLTIP_RIGHT.html("Category: " + rightData.category + "<br>" + 
+                                    "Amount ($): " + d3.format(",")(rightData[collegeTwoValue]))
+                                                    .style("opacity", 1);              
+            }
 
-                                                // show tooltip for right chart
-                                                const leftData = data.find(e => e.category === d.category);
-                                                TOOLTIP_RIGHT.html("Category: " + leftData.category + "<br>" + 
-                                                    "Amount: " + d3.format(",")(leftData[collegeTwoValue]))
-                                                                    .style("left", "1300px")
-                                                                    .style("top", "2200px")
-                                                                    .style("opacity", 1);
-                                                }
-        }
+            // defines event handler function for a mouse removal
+            function handleMouseleave(event, d) {
 
-        function handleMouseleave(event, d) {
-            // hide tooltip for left chart
-            TOOLTIP_LEFT.style("opacity", 0);
+                // remove border from right bar
+                FRAME2.selectAll(".bar")
+                        .attr("stroke", "none");
 
-            // remove highlight from right chart
-            FRAME2.selectAll(".bar")
-                .attr("stroke", "none");
+                // hides tooltips
+                TOOLTIP_LEFT.style("opacity", 0);
+                TOOLTIP_RIGHT.style("opacity", 0);  
+            }  
 
-            // hide tooltip for right chart
-            TOOLTIP_RIGHT.style("opacity", 0);
-        }
-
-        FRAME1.selectAll(".bar")
-                .on("mousemove", function(event, d) {
-                    handleMousemove(event, d, collegeOneValue, collegeTwoValue); })
-                .on("mouseleave", handleMouseleave); });
+            // adds event listeners
+            FRAME1.selectAll(".bar")
+                    .on("mousemove", function(event, d) {
+                        handleMousemove(event, d, collegeOneValue, collegeTwoValue); })
+                    .on("mouseleave", handleMouseleave); 
+        });
     }
 
     // creates bar chart in right column
-    function bar_chart_2(collegeTwoValue, collegeOneValue) {
+    function bar_chart_2(collegeOneValue, collegeTwoValue) {
 
         // loads data from CSV file
         d3.csv("data/cutbardata.csv").then((data) => {
@@ -451,8 +442,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                                 .attr("height", d => { return (VIS_HEIGHT - Y_SCALE_2(d[collegeTwoValue])) })
                                 .attr("fill", d => { return z3(d.category) })
                                 .on("mousemove", function(event, d) {
-                                    handleMousemove(event, d, collegeTwoValue, collegeOneValue);
-                                })
+                                    handleMousemove(event, d, collegeOneValue, collegeTwoValue); })
                                 .on("mouseleave", handleMouseleave);
 
             // defines event handler function for a mouse hover and mouse leave
@@ -467,51 +457,42 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                 }
             }
 
-            // attaches the event listeners to the bar class
+            // attaches event listeners to bar class
             d3.selectAll(".bar")
                 .on("mouseover", handleMouse)
                 .on("mouseout", handleMouse);
 
             // defines event handler function for a mouse move
-            function handleMousemove(event, d, collegeTwoValue, collegeOneValue) {
+            function handleMousemove(event, d, collegeOneValue, collegeTwoValue) {
 
-            // highlight corresponding bar in left chart if the corresponding bar is being hovered over
-                if (d.category === FRAME1.selectAll("#vis2 .bar")
-                    .filter(function(e) { 
-                        return e.category === d.category && e[collegeOneValue] === d[collegeOneValue]; }).data()[0].category) {
-                            FRAME1.selectAll("#vis2 .bar")
-                                    .filter(function(e) { 
-                                        return e.category === d.category && e[collegeOneValue] === d[collegeOneValue]; })
-                                    .attr("stroke", "black")
-                                    .attr("stroke-width", "5px");
+                TOOLTIP_RIGHT.html("Category: " + d.category + "<br>" +
+                                    "Amount ($): " + d3.format(",")(d[collegeTwoValue]))
+                                                    .style("opacity", 1);
 
-                        // show tooltip for right chart
-                        TOOLTIP_LEFT.html("Category: " + d.category + "<br>" + 
-                            "Amount: " + d3.format(",")(d[collegeOneValue]))
-                                        .style("left", "360px")
-                                        .style("top", "2200px")
-                                        .style("opacity", 1);
-    
-                        // show tooltip for left chart
-                        const rightData = data.find(e => e.category === d.category);
-                        TOOLTIP_RIGHT.html("Category: " + rightData.category + "<br>" + 
-                            "Amount: " + d3.format(",")(rightData[collegeTwoValue]))
-                                        .style("left", "1300px")
-                                        .style("top", "2200px")
-                                        .style("opacity", 1);
-                        }
+                // selects left bar chart and adds border to matching right bar 
+                d3.select("#vis2")
+                    .selectAll(".bar")
+                        .filter(function(e) {
+                            return e.category === d.category && e[collegeOneValue] === d[collegeOneValue]; })
+                        .attr("stroke", "black")
+                        .attr("stroke-width", "5px");
+
+                // shows tooltip for right chart
+                const leftData = data.find(e => e.category === d.category);
+                TOOLTIP_LEFT.html("Category: " + leftData.category + "<br>" + 
+                                    "Amount ($): " + d3.format(",")(leftData[collegeOneValue]))
+                                                    .style("opacity", 1);                            
             }
 
             // defines event handler function for a mouse removal
             function handleMouseleave(event, d) {
-            // remove highlight from left chart
+
+            // remove border from left bar
             FRAME1.selectAll(".bar")
                 .attr("stroke", "none");
 
-            // hide tooltip for right chart
+            // hides tooltips
             TOOLTIP_LEFT.style("opacity", 0);
-
-            // hide tooltip for left chart
             TOOLTIP_RIGHT.style("opacity", 0);
             
             }  
@@ -519,7 +500,8 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             // adds event listeners
             FRAME2.selectAll(".bar")
                     .on("mousemove", function(event, d) {
-                        handleMousemove(event, d, collegeTwoValue, collegeOneValue); })
-                    .on("mouseleave", handleMouseleave); });
+                        handleMousemove(event, d, collegeOneValue, collegeTwoValue); })
+                    .on("mouseleave", handleMouseleave); 
+        });
     }
 });
