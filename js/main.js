@@ -177,12 +177,10 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                             .attr("id", "button")
                             .text("Compare !");
 
-
-
     // adds event listener for a click on button
     button.on("click", handleCompareColleges);
 
-    // event handler for mouse click
+    // defines event handler for mouse click
     function handleCompareColleges() {
     
         // gets values of selected colleges
@@ -205,7 +203,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
         bar_chart_2(collegeOneValue, collegeTwoValue);
     }
 
-    // Frame
+    // Frame & margins
     const FRAME_HEIGHT = 600;
     const FRAME_WIDTH = 800;
     const MARGINS = { left: 100, right: 100, top: 100, bottom: 100 };
@@ -214,29 +212,27 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
     const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right;
 
-    // creates frame for second vis
+    // creates frame for vis2 & vis3
     const FRAME1 = d3.select("#vis2")
                         .append("svg")
                         .attr("height", FRAME_HEIGHT)
                         .attr("width", FRAME_WIDTH)
                         .attr("class", "frame");
 
-    // creates frame for third vis
     const FRAME2 = d3.select("#vis3")
                         .append("svg")
                         .attr("height", FRAME_HEIGHT)
                         .attr("width", FRAME_WIDTH)
                         .attr("class", "frame");
 
-    // selects vis2 element and adds a class tooltip-2
+    // selects vis2 & vis3 elements and adds a class tooltip-2
     const TOOLTIP_LEFT = d3.select("#vis2")
                         .append("div")
                         .attr("class", "tooltip-2"); 
 
-    // selects vis3 element and adds a class tooltip-2
     const TOOLTIP_RIGHT = d3.select("#vis3")
                         .append("div")
-                        .attr("class", "tooltip-2"); 
+                        .attr("class", "tooltip-2");
 
     // creates bar chart in left column
     function bar_chart_1(collegeOneValue, collegeTwoValue) {
@@ -330,6 +326,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             // defines event handler function for a mouse move
             function handleMousemove(event, d, collegeOneValue, collegeTwoValue) {
 
+                // passes data to vis2 tooltip
                 TOOLTIP_LEFT.html("Category: " + d.category + "<br>" +
                                     "Amount ($): " + d3.format(",")(d[collegeOneValue]))
                                                     .style("opacity", 1);
@@ -342,17 +339,17 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                         .attr("stroke", "black")
                         .attr("stroke-width", "5px");
 
-                // shows tooltip for right chart
+                // passes data to vis3 tooltip
                 const rightData = data.find(e => e.category === d.category);
                 TOOLTIP_RIGHT.html("Category: " + rightData.category + "<br>" + 
                                     "Amount ($): " + d3.format(",")(rightData[collegeTwoValue]))
-                                                    .style("opacity", 1);              
+                                .style("opacity", 1);              
             }
 
             // defines event handler function for a mouse removal
             function handleMouseleave(event, d) {
 
-                // remove border from right bar
+                // removes border from right bar
                 FRAME2.selectAll(".bar")
                         .attr("stroke", "none");
 
@@ -361,7 +358,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                 TOOLTIP_RIGHT.style("opacity", 0);  
             }  
 
-            // adds event listeners
+            // adds event listeners to bar class
             FRAME1.selectAll(".bar")
                     .on("mousemove", function(event, d) {
                         handleMousemove(event, d, collegeOneValue, collegeTwoValue); })
@@ -465,9 +462,10 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             // defines event handler function for a mouse move
             function handleMousemove(event, d, collegeOneValue, collegeTwoValue) {
 
+                // passes data to vis3 tooltip
                 TOOLTIP_RIGHT.html("Category: " + d.category + "<br>" +
                                     "Amount ($): " + d3.format(",")(d[collegeTwoValue]))
-                                                    .style("opacity", 1);
+                                .style("opacity", 1);
 
                 // selects left bar chart and adds border to matching right bar 
                 d3.select("#vis2")
@@ -477,7 +475,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                         .attr("stroke", "black")
                         .attr("stroke-width", "5px");
 
-                // shows tooltip for right chart
+                // passes data to vis2 tooltip
                 const leftData = data.find(e => e.category === d.category);
                 TOOLTIP_LEFT.html("Category: " + leftData.category + "<br>" + 
                                     "Amount ($): " + d3.format(",")(leftData[collegeOneValue]))
@@ -487,7 +485,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             // defines event handler function for a mouse removal
             function handleMouseleave(event, d) {
 
-            // remove border from left bar
+            // removes border from left bar
             FRAME1.selectAll(".bar")
                 .attr("stroke", "none");
 
@@ -497,7 +495,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             
             }  
 
-            // adds event listeners
+            // adds event listeners to bar class
             FRAME2.selectAll(".bar")
                     .on("mousemove", function(event, d) {
                         handleMousemove(event, d, collegeOneValue, collegeTwoValue); })

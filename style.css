@@ -51,9 +51,9 @@ h4 {
 }
 
 form {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 label, button {
@@ -61,7 +61,8 @@ label, button {
 }
 
 select {
-  width: 250px;
+    font-size: 20px;
+    width: 250px;
 }
 
 .x-label {
