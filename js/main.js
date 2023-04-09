@@ -502,4 +502,205 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .on("mouseleave", handleMouseleave); 
         });
     }
+     // creates frame for fourth vis
+    const FRAME3 = d3.select("#vis4")
+        .append("svg")
+        .attr("height", FRAME_HEIGHT)
+        .attr("width", FRAME_WIDTH)
+        .attr("class", "frame");
+
+    //passing in the college in function 
+
+    //function to create the first pie chart
+    let updatePieChart = function (collegeOneValue) {
+        // Read in the data from the local csv file
+        d3.csv("cutpiedata.csv").then((data) => {
+            const width = 500,
+                height = 450,
+                margin = 50;
+            const radius = Math.min(width, height) / 2 - margin;
+
+            /*
+                    // remove the previous pie chart
+                    let pieChart = d3.select("#pie-chart");
+                    pieChart.selectAll("*").remove();
+            
+                    console.log("removed previous pie charts");*/
+
+            // append a new pie chart
+            pieChart = FRAME3
+                .append("g")
+                .attr("transform", `translate(${width / 1.5}, ${height / 2})`);
+
+            console.log(pieChart);
+
+            let wordObject = (data.map((d) => { return d.race }));
+
+            //supply data to the pie chart
+            const pieData = {
+                in_state_tuition: 7,
+                out_of_state_tuition: 8,
+                early_career_pay: 9,
+                mid_career_pay: 10
+            };
+
+            //domain should be data values of college feautre (ex. in state tuition)
+            //color the pie chart
+            const color = d3.scaleOrdinal()
+                .domain([7, 8, 9, 10])
+                .range(d3.schemeSet2);
+
+            // call the d3 pie API to get the sizing  data
+            const pie = d3.layout.pie()
+                .sort(null)
+                .value(function (d) {
+                return d.race;
+                });
+
+        /*    data.forEach(function (d) {
+                d.race = +d.race;
+            })*/
+          //  const data_ready = pie(Object.entries(pieData));
+
+          //  console.log(data_ready);
+
+            //create the arcs
+            const arcGenerator = d3.arc().innerRadius(50).outerRadius(radius);
+
+            //select the arc objects, append to the g element
+            var arc = pieChart.selectAll(".arc")
+                .data(pie(data))
+                .enter().append("g")
+                .attr("class", "arc");
+
+
+            arc.append("path")
+                .attr("d", arcGenerator)
+                .attr("fill", function (d) {
+                    console.log(d);
+                    return color(d.data.Adams_State_University);
+                })
+                .attr("stroke", "black")
+                .style("stroke-width", "0.5px")
+                .style("opacity", 1.0);
+
+            // add annotations for the chart
+            pieChart
+                .selectAll("slices")
+                .data(pie(data))
+                .join("text")
+                .attr("dy", "0em")
+                .text(function (d) {
+                    return (d.data[0]) + " : " + d.data[1];
+                })
+                .attr("transform", function (d) {
+                    let c = arcGenerator.centroid(d);
+                    let x = c[0];
+                    let y = c[1];
+                    let h = Math.sqrt(x * x + y * y);
+                    let labelr = radius + 20;
+                    return "translate(" + (x / h) * labelr + "," + (y / h) * labelr + ")";
+                })
+                .style("text-anchor", "middle")
+                .style("font-size", 9);
+
+
+        })
+    }
+
+    // creates frame for fourth vis
+    const FRAME4 = d3.select("#vis5")
+        .append("svg")
+        .attr("height", FRAME_HEIGHT)
+        .attr("width", FRAME_WIDTH)
+        .attr("class", "frame");
+
+    //function to create the second pie chart
+    let updatePieChart2 = function () {
+        // Read in the data from the local csv file
+        d3.csv("cutpiedata.csv").then((data) => {
+            const width = 500,
+                height = 450,
+                margin = 50;
+            const radius = Math.min(width, height) / 2 - margin;
+
+            console.log(width);
+            /*
+                    // remove the previous pie chart
+                    let pieChart = d3.select("#pie-chart");
+                    pieChart.selectAll("*").remove();
+            
+                    console.log("removed previous pie charts");*/
+
+            // append a new pie chart
+            pieChart = FRAME4
+                .append("g")
+                .attr("transform", `translate(${width / 1.5}, ${height / 2})`);
+
+            console.log(pieChart);
+
+            /*  // let wordObject = data.filter(function (d) {
+                //   return d["Yale University"].localeCompare(word) == 0
+             //  })[0];*/
+            const pieData = {
+                in_state_tuition: 7,
+                out_of_state_tuition: 8,
+                early_career_pay: 9,
+                mid_career_pay: 10
+            };
+
+            //domain should be data values 
+
+            const color = d3.scaleOrdinal()
+                .domain([7, 8, 9, 10])
+                .range(d3.schemeCategory10);
+
+            console.log(color(7));
+
+            // call the d3 pie API to get the sizing  data
+            const pie = d3.pie().value(function (d) {
+                return d[1];
+            });
+            const data_ready = pie(Object.entries(pieData));
+
+            console.log(data_ready);
+
+            const arcGenerator = d3.arc().innerRadius(50).outerRadius(radius);
+
+            var arc = pieChart.selectAll(".arc")
+                .data(data_ready)
+                .enter().append("g")
+                .attr("class", "arc");
+
+            arc.append("path")
+                .attr("d", arcGenerator)
+                .attr("fill", function (d) {
+                    console.log(d);
+                    return color(d.value);
+                })
+                .attr("stroke", "black")
+                .style("stroke-width", "0.5px")
+                .style("opacity", 1.0);
+
+            // add annotations for the chart
+            pieChart
+                .selectAll("slices")
+                .data(data_ready)
+                .join("text")
+                .attr("dy", "0em")
+                .text(function (d) {
+                    return (d.data[0]) + " : " + d.data[1];
+                })
+                .attr("transform", function (d) {
+                    let c = arcGenerator.centroid(d);
+                    let x = c[0];
+                    let y = c[1];
+                    let h = Math.sqrt(x * x + y * y);
+                    let labelr = radius + 20;
+                    return "translate(" + (x / h) * labelr + "," + (y / h) * labelr + ")";
+                })
+                .style("text-anchor", "middle")
+                .style("font-size", 9);
+        })
+    }
 });
