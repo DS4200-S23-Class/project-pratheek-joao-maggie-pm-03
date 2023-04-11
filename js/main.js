@@ -213,7 +213,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     // Frame & margins
     const FRAME_HEIGHT = 600;
     const FRAME_WIDTH = 800;
-    const MARGINS = { left: 100, right: 100, top: 100, bottom: 100 };
+    const MARGINS = { left: 100, right: 100, top: 50, bottom: 75 };
 
     // Height and widths for visualizations
     const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
@@ -222,13 +222,13 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     // creates frame for vis2, vis3, vis4, & vis5
     const FRAME2 = d3.select("#vis2")
                         .append("svg")
-                        .attr("height", FRAME_HEIGHT)
+                        .attr("height", FRAME_HEIGHT + 20)
                         .attr("width", FRAME_WIDTH)
                         .attr("class", "frame");
 
     const FRAME3 = d3.select("#vis3")
                         .append("svg")
-                        .attr("height", FRAME_HEIGHT)
+                        .attr("height", FRAME_HEIGHT + 20)
                         .attr("width", FRAME_WIDTH)
                         .attr("class", "frame");
 
@@ -569,7 +569,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                                                     .style("opacity", 1);
                 
                 // selects right bar chart and adds border to matching left bar 
-                d3.select("#vis4")
+                d3.select("#vis5")
                     .selectAll(".bar")
                         .filter(function(e) {
                             return e.category === d.category && e[collegeTwoValue] === d[collegeTwoValue]; })
@@ -705,7 +705,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                                 .style("opacity", 1);
 
                 // selects left bar chart and adds border to matching right bar 
-                d3.select("#vis5")
+                d3.select("#vis4")
                     .selectAll(".bar")
                         .filter(function(e) {
                             return e.category === d.category && e[collegeOneValue] === d[collegeOneValue]; })
