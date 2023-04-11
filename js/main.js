@@ -514,18 +514,19 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     //function to create the first pie chart
     let updatePieChart = function (collegeOneValue) {
         // Read in the data from the local csv file
-        d3.csv("cutpiedata.csv").then((data) => {
+        d3.csv("test.csv").then((data) => {
             const width = 500,
                 height = 450,
                 margin = 50;
             const radius = Math.min(width, height) / 2 - margin;
 
-            /*
+            console.log(data);
+            
                     // remove the previous pie chart
                     let pieChart = d3.select("#pie-chart");
                     pieChart.selectAll("*").remove();
             
-                    console.log("removed previous pie charts");*/
+                    console.log("removed previous pie charts");
 
             // append a new pie chart
             pieChart = FRAME3
@@ -534,51 +535,44 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
 
             console.log(pieChart);
 
-            let wordObject = (data.map((d) => { return d.race }));
-
-            //supply data to the pie chart
+            //data pulled from the columns of the csv for the pie chart slices
             const pieData = {
-                in_state_tuition: 7,
-                out_of_state_tuition: 8,
-                early_career_pay: 9,
-                mid_career_pay: 10
+                american_indian: +data[0].american_indian,
+                black: +data[0].black,
+                hispanic: +data[0].hispanic,
+                pacific_islander: +data[0].pacific_islander,
+                asian: +data[0].asian,
+                two_or_more_races: +data[0].two_or_more_races,
+                other: +data[0].other,
             };
 
-            //domain should be data values of college feautre (ex. in state tuition)
-            //color the pie chart
+            //coloring the slices
             const color = d3.scaleOrdinal()
-                .domain([7, 8, 9, 10])
-                .range(d3.schemeSet2);
+                .domain(Object.values(pieData))
+                .range(d3.schemeCategory10);
 
             // call the d3 pie API to get the sizing  data
-            const pie = d3.layout.pie()
-                .sort(null)
-                .value(function (d) {
-                return d.race;
-                });
+            const pie = d3.pie().value(function (d) {
+                return d[1];
+            });
 
-        /*    data.forEach(function (d) {
-                d.race = +d.race;
-            })*/
-          //  const data_ready = pie(Object.entries(pieData));
+            //pull the necessary data into a pie element
+            const data_ready = pie(Object.entries(pieData));
 
-          //  console.log(data_ready);
-
-            //create the arcs
+            //generate arc and radius of circles
             const arcGenerator = d3.arc().innerRadius(50).outerRadius(radius);
 
-            //select the arc objects, append to the g element
+            //build the arcs on a g element
             var arc = pieChart.selectAll(".arc")
-                .data(pie(data))
+                .data(data_ready)
                 .enter().append("g")
                 .attr("class", "arc");
 
-
+            //draw the paths from the center 
             arc.append("path")
                 .attr("d", arcGenerator)
                 .attr("fill", function (d) {
-                    console.log(d);
-                    return color(d.data.Adams_State_University);
+                    return color(d.value);
                 })
                 .attr("stroke", "black")
                 .style("stroke-width", "0.5px")
@@ -587,7 +581,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             // add annotations for the chart
             pieChart
                 .selectAll("slices")
-                .data(pie(data))
+                .data(data_ready)
                 .join("text")
                 .attr("dy", "0em")
                 .text(function (d) {
@@ -603,8 +597,6 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                 })
                 .style("text-anchor", "middle")
                 .style("font-size", 9);
-
-
         })
     }
 
@@ -614,23 +606,23 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
         .attr("height", FRAME_HEIGHT)
         .attr("width", FRAME_WIDTH)
         .attr("class", "frame");
-
+             
     //function to create the second pie chart
-    let updatePieChart2 = function () {
+    let updatePieChart2 = function (collegeTwoValue) {
         // Read in the data from the local csv file
-        d3.csv("cutpiedata.csv").then((data) => {
+        d3.csv("test.csv").then((data) => {
             const width = 500,
                 height = 450,
                 margin = 50;
             const radius = Math.min(width, height) / 2 - margin;
 
-            console.log(width);
-            /*
-                    // remove the previous pie chart
-                    let pieChart = d3.select("#pie-chart");
-                    pieChart.selectAll("*").remove();
-            
-                    console.log("removed previous pie charts");*/
+            console.log(data);
+
+            // remove the previous pie chart
+            let pieChart = d3.select("#pie-chart");
+            pieChart.selectAll("*").remove();
+
+            console.log("removed previous pie charts");
 
             // append a new pie chart
             pieChart = FRAME4
@@ -639,43 +631,43 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
 
             console.log(pieChart);
 
-            /*  // let wordObject = data.filter(function (d) {
-                //   return d["Yale University"].localeCompare(word) == 0
-             //  })[0];*/
+            //data pulled from the columns of the csv for the pie chart slices
             const pieData = {
-                in_state_tuition: 7,
-                out_of_state_tuition: 8,
-                early_career_pay: 9,
-                mid_career_pay: 10
+                american_indian: +data[0].american_indian,
+                black: +data[0].black,
+                hispanic: +data[0].hispanic,
+                pacific_islander: +data[0].pacific_islander,
+                asian: +data[0].asian,
+                two_or_more_races: +data[0].two_or_more_races,
+                other: +data[0].other,
             };
 
-            //domain should be data values 
-
+            //coloring the slices
             const color = d3.scaleOrdinal()
-                .domain([7, 8, 9, 10])
+                .domain(Object.values(pieData))
                 .range(d3.schemeCategory10);
-
-            console.log(color(7));
 
             // call the d3 pie API to get the sizing  data
             const pie = d3.pie().value(function (d) {
                 return d[1];
             });
+
+            //pull the necessary data into a pie element
             const data_ready = pie(Object.entries(pieData));
 
-            console.log(data_ready);
-
+            //generate the arc and radius of the circles
             const arcGenerator = d3.arc().innerRadius(50).outerRadius(radius);
 
+            //build the arc, apply it to a g element
             var arc = pieChart.selectAll(".arc")
                 .data(data_ready)
                 .enter().append("g")
                 .attr("class", "arc");
 
+            //build the paths from the center
             arc.append("path")
                 .attr("d", arcGenerator)
                 .attr("fill", function (d) {
-                    console.log(d);
                     return color(d.value);
                 })
                 .attr("stroke", "black")
