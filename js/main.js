@@ -132,8 +132,8 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     // selects vis1 element and stores it as a constant 
     const dropDown = d3.select("#vis1");
 
-    // appends h4 element to vis1
-    dropDown.append("h4")
+    // appends h5 element to vis1
+    dropDown.append("h5")
                 .text("College Comparer");
 
     // appends form element to vis1
@@ -279,7 +279,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             // append a new pie chart
             pieChart = FRAME2
                 .append("g")
-                .attr("transform", `translate(${PIE_WIDTH / 1.6}, ${PIE_HEIGHT / 2})`);
+                .attr("transform", `translate(${PIE_WIDTH / 2}, ${PIE_HEIGHT / 2})`);
 
             console.log(pieChart);
 
@@ -336,11 +336,13 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .style("opacity", 1.0)
                     .on("mouseover", function (event, d) {
                         d3.select(this)
-                            .attr("fill", d3.color(COLOR(d.data[0])).copy({opacity: 0.8}));
+                            .attr("fill", d3.color(COLOR(d.data[0])).copy({opacity: 0.5}))
+                            .style("stroke-width", "3px");
                     })
                     .on("mouseout", function (event, d) {
                         d3.select(this)
-                            .attr("fill", COLOR(d.data[0]));
+                            .attr("fill", COLOR(d.data[0]))
+                            .style("stroke-width", "1px");;
                     });
             ARC.selectAll("path")
                     .on("mouseover", function(event, d) {
@@ -351,7 +353,8 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                             .style("left", event.pageX + 10 + "px")
                             .style("top", event.pageY + 10 + "px");                          
                         d3.select(this)
-                            .attr("fill", d3.color(COLOR(d.data[0])).copy({opacity: 0.8}));
+                            .attr("fill", d3.color(COLOR(d.data[0])).copy({opacity: 0.5}))
+                            .style("stroke-width", "3px");;
                     })
                     .on("mousemove", function(event, d) {
                         TOOLTIP_PIE
@@ -361,8 +364,32 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .on("mouseout", function(event, d) {
                         TOOLTIP_PIE.style("opacity", 0);
                         d3.select(this)
-                            .attr("fill", COLOR(d.data[0]));
+                            .attr("fill", COLOR(d.data[0]))
+                            .style("stroke-width", "1px");;
                     });
+
+            // Create a legend
+            const LEGEND = pieChart.selectAll(".legend")
+                .data(raceNames)
+                .enter()
+                .append("g")
+                .attr("class", "legend")
+                .attr("transform", function(d, i) { return "translate(-250," + (i * 20 - 110) + ")"; });
+
+            LEGEND.append("rect")
+                .attr("x", PIE_WIDTH)
+                .attr("width", 18)
+                .attr("height", 18)
+                .style("fill", function(d) { return COLOR(d); })
+                .style("stroke", "black")
+                .style("stroke-width", "1px");
+
+            LEGEND.append("text")
+                .attr("x", PIE_WIDTH - 5)
+                .attr("y", 9)
+                .attr("dy", ".35em")
+                .style("text-anchor", "end")
+                .text(function(d) { return d; });
         });
     }
 
@@ -384,7 +411,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             // append a new pie chart
             pieChart2 = FRAME3
                 .append("g")
-                .attr("transform", `translate(${PIE_WIDTH2 / 1.6}, ${PIE_HEIGHT2 / 2})`);
+                .attr("transform", `translate(${PIE_WIDTH2 / 2}, ${PIE_HEIGHT2 / 2})`);
 
             let pieData2 = {};
 
@@ -441,11 +468,13 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .style("opacity", 1.0)
                     .on("mouseover", function (event, d) {
                         d3.select(this)
-                            .attr("fill", d3.color(COLOR2(d.data[0])).copy({opacity: 0.8}));
+                            .attr("fill", d3.color(COLOR2(d.data[0])).copy({opacity: 0.5}))
+                            .style("stroke-width", "3px");;
                     })
                     .on("mouseout", function (event, d) {
                         d3.select(this)
-                            .attr("fill", COLOR2(d.data[0]));
+                            .attr("fill", COLOR2(d.data[0]))
+                            .style("stroke-width", "1px");;
                     });
             ARC_TWO.selectAll("path")
                     .on("mouseover", function(event, d) {
@@ -456,7 +485,8 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                             .style("left", event.pageX + 10 + "px")
                             .style("top", event.pageY + 10 + "px");                          
                         d3.select(this)
-                            .attr("fill", d3.color(COLOR2(d.data[0])).copy({opacity: 0.8}));
+                            .attr("fill", d3.color(COLOR2(d.data[0])).copy({opacity: 0.5}))
+                            .style("stroke-width", "3px");;
                     })
                     .on("mousemove", function(event, d) {    
                         TOOLTIP_PIE2
@@ -466,8 +496,32 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .on("mouseout", function(event, d) {
                         TOOLTIP_PIE2.style("opacity", 0);
                         d3.select(this)
-                            .attr("fill", COLOR2(d.data[0]));
+                            .attr("fill", COLOR2(d.data[0]))
+                            .style("stroke-width", "1px");;
                     });
+
+            // Create a legend
+            const LEGEND = pieChart2.selectAll(".legend")
+                .data(raceNames)
+                .enter()
+                .append("g")
+                .attr("class", "legend")
+                .attr("transform", function(d, i) { return "translate(-250," + (i * 20 - 110) + ")"; });
+
+            LEGEND.append("rect")
+                .attr("x", PIE_WIDTH2)
+                .attr("width", 18)
+                .attr("height", 18)
+                .style("fill", function(d) { return COLOR2(d); })
+                .style("stroke", "black")
+                .style("stroke-width", "1px");
+
+            LEGEND.append("text")
+                .attr("x", PIE_WIDTH2 - 5)
+                .attr("y", 9)
+                .attr("dy", ".35em")
+                .style("text-anchor", "end")
+                .text(function(d) { return d; });
         });
     }
 
