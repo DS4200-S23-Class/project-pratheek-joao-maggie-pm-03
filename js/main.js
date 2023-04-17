@@ -264,7 +264,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     //function to create the first pie chart
     function pie_chart_1(collegeOneValue) {
     
-        d3.csv("data/test_pie.csv").then((data) => {
+        d3.csv("data/cutpiedata.csv").then((data) => {
             const PIE_WIDTH = 650;
             const PIE_HEIGHT = 650;
             const PIE_MARGIN = 50;
@@ -396,7 +396,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     //function to create the second pie chart
     function pie_chart_2(collegeTwoValue) {
 
-        d3.csv("data/test_pie.csv").then((data) => {
+        d3.csv("data/cutpiedata.csv").then((data) => {
             const PIE_WIDTH2 = 650;
             const PIE_HEIGHT2 = 650;
             const PIE_MARGIN2 = 50;

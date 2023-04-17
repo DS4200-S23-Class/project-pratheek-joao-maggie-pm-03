@@ -15,7 +15,7 @@
 
 <body>
 
-    <!-- title -->
+    <!-- project title -->
     <h1> A Holistic Look at the College Lifecycle </h1>
 
     <div>
@@ -45,6 +45,7 @@
 
     <div>
         <h2>Background</h2>
+
         <h3>Data</h3>
 
         <div class="subtext">
@@ -53,34 +54,32 @@
             <p> The raw data gathered for this project comes primarily from the US Department of Education but from other sources as well, such as Priceonomics.com, TuitionTracker.org, payscale.com, and the Chronicle of Higher Education. This raw data was initially collected and condensed by Jesse Mostipak, a Developer Advocate at Baseten, who then posted 5 different Excel files to Kaggle.</p>
 
             <p> Some biases and shortcomings that we found within the data include the fact that only universities with 2-year and 4-year degree lengths were included, the diversity data is from 2014 (while tuition and fees data is from 2019) and does not specify what is meant by ”unknown” race nor breaks down the ”two or more races” category to capture specific biracial groups, and many colleges had to be removed since they were not listed on all three files that were used.</p>
+
+            <ul class="subtext">
+                <li>
+                    <a href="data\DS4200 PM-02 Dataset Final.csv">Dataset</a>
+                </li>
+            </ul>
         </div>
 
-        <ul class="subtext">
+        <h3>Demo Video (How to Use the Below Visualization)</h3>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/9-_9QQZPrs8"
+            title="YouTube video player" frameborder="0" allow="accelerometer; 
+            autoplay; clipboard-write;
+            encrypted-media; gyroscope; picture-in-picture;
+            web-share" allowfullscreen>
+            </iframe>
+
+        <h3>Report</h3>
+        <ul>
             <li>
                 <a href="report\DS_4200_Project_Paper.pdf">Report</a>
             </li>
-            <li>
-                <a href="data\DS4200 PM-02 Dataset Final.csv">Dataset</a>
-            </li>
         </ul>
-      
-
     </div>
-    
-     <div style="text-align:center" >
-        <h2> Demo Video (How to Use the Below Visualization)</h2>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/9-_9QQZPrs8"
-                title="YouTube video player" frameborder="0" allow="accelerometer; 
-                autoplay; clipboard-write;
-                encrypted-media; gyroscope; picture-in-picture;
-                web-share" allowfullscreen>
-
-        </iframe>
-    </div>
-
-
 <div>
-        <h2>Visualization</h2>
+
+    <h2>Visualization</h2>
         <div id="vis1">
             <h5>United States Map</h5>
             <p class="subtext">
@@ -101,11 +100,6 @@
                 <div id="vis3"></div>
                 <div id="vis5"> </div>
             </div>
-
-            <!-- To do:
-            - Make search bar for dropdown
-            - Make diversity pie charts for colleges -->
-
         </div>
     </div>
 
