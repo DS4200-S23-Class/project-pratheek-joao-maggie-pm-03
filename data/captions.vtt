@@ -1,0 +1,96 @@
+﻿WEBVTT
+
+00:00:03.020 --> 00:00:08.340
+Welcome to the demo video of our Visualization. So
+when the user first opens up our website,
+
+00:00:08.340 --> 00:00:12.380
+they will see the title a Holistic Look at
+the College Lifecycle, along with the motivation
+
+00:00:12.380 --> 00:00:17.710
+and use case the background. And finally, they
+will come to the Visualization. So the first
+
+00:00:17.710 --> 00:00:21.550
+visualization they will see is this map of
+the United States, where the user will be
+
+00:00:21.550 --> 00:00:26.750
+able to hover over individual states and see
+those states statistics for tuition costs,
+
+00:00:26.750 --> 00:00:31.260
+salary prospects. So you see here Massachusetts
+average out of state tuition costs, average
+
+00:00:31.260 --> 00:00:36.970
+in state tuition costs, average early career
+pay, and average mid career pay. As the user
+
+00:00:36.970 --> 00:00:42.030
+scrolls down further, they will reach the
+college Compare functionality.
+
+00:00:42.030 --> 00:00:47.620
+Here they will be able to select two different
+colleges and compare statistics. So let's see
+
+00:00:47.620 --> 00:00:59.020
+Northeastern University
+compared to let's go with Alaska Pacific University. So
+
+00:00:59.020 --> 00:01:03.260
+two very different colleges.The user will
+then hit the Compare button.The first thing
+
+00:01:03.260 --> 00:01:10.000
+they'll see pop up is a pie chart with the
+diversity statistics of that particular university. So
+
+00:01:10.000 --> 00:01:15.130
+they can hover over this pie chart and see
+the exact percentages of students of these
+
+00:01:15.130 --> 00:01:21.100
+races that are admitted. And the pie chart
+will also change opacity and border width
+
+00:01:21.100 --> 00:01:25.790
+so that the user can see exactly which slice
+they're highlighting. As they scroll further
+
+00:01:25.790 --> 00:01:30.650
+down, they'll come across two bar charts, one
+for each college where we have the specific
+
+00:01:30.650 --> 00:01:35.180
+in state tuition cost, out of state tuition
+cost, early career pay, and mid career pay
+
+00:01:35.180 --> 00:01:39.939
+for that college. And as the user hovers over
+these bars, they will see the exact amounts
+
+00:01:39.939 --> 00:01:45.930
+on the tooltip below, and they will also see
+the respective bar on the other chart be highlighted
+
+00:01:45.930 --> 00:01:54.810
+as well. You can see that for all the bars
+on both graphs. Now, if the student is tired
+
+00:01:54.810 --> 00:01:59.781
+of comparing Alaska Pacific University to
+Northeast University, they can also come and
+
+00:01:59.781 --> 00:02:02.700
+compare with another college, let's say Auburn
+University.
+
+00:02:02.700 --> 00:02:06.440
+Hit Compare and the graphs will update with
+Auburn's data.
+
+00:02:06.440 --> 00:02:07.960
+Thank you.
