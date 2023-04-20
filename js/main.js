@@ -190,24 +190,24 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
         console.log(collegeOneValue);
         console.log(collegeTwoValue);
 
-        // updates header of bar-graph with college's name
+        // updates headers of charts with college's name
         const headerLeft = d3.select("#header-left");
         const headerRight = d3.select("#header-right");
 
         headerLeft.text(`${collegeOneValue}`);
         headerRight.text(`${collegeTwoValue}`);
 
-        // removes previous bar charts
+        // removes previous charts
         FRAME2.selectAll(".pie").remove();
         FRAME3.selectAll(".pie").remove();
         FRAME4.selectAll(".bar").remove();
         FRAME5.selectAll(".bar").remove();
 
-        // creates bar charts for selected colleges
+        // creates charts for selected colleges
         pie_chart_1(collegeOneValue);
         pie_chart_2(collegeTwoValue);
         bar_chart_1(collegeOneValue, collegeTwoValue);
-        bar_chart_2(collegeOneValue, collegeTwoValue)
+        bar_chart_2(collegeOneValue, collegeTwoValue);
     }
 
     // Frame & margins
@@ -219,7 +219,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
     const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
     const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right;
 
-    // creates frame for vis2, vis3, vis4, & vis5
+    // creates frame for vis2-vis5
     const FRAME2 = d3.select("#vis2")
                         .append("svg")
                         .attr("height", FRAME_HEIGHT + 20)
@@ -244,7 +244,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                         .attr("width", FRAME_WIDTH)
                         .attr("class", "frame");
 
-    // selects vis2 & vis3 elements and adds a class tooltip-2
+    // selects vis2-vis5 and adds a class tooltip-2
     const TOOLTIP_PIE = d3.select("#vis2")
                             .append("div")
                             .attr("class", "tooltip"); 
@@ -261,7 +261,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                                 .append("div")
                                 .attr("class", "tooltip-2");
 
-    //function to create the first pie chart
+    // creates the left-column pie chart
     function pie_chart_1(collegeOneValue) {
     
         d3.csv("data/test_pie.csv").then((data) => {
@@ -270,18 +270,16 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             const PIE_MARGIN = 50;
             const PIE_RADIUS = Math.min(PIE_WIDTH, PIE_HEIGHT) / 2 - PIE_MARGIN;
         
-            // remove the previous pie chart
+            // removes the previous pie chart
             let pieChart = d3.select("#vis2");
             FRAME2.selectAll(".arc").remove();
             FRAME2.selectAll(".slices").remove();
             FRAME2.selectAll(".pie-text").remove();
 
-            // append a new pie chart
+            // appends a new pie chart
             pieChart = FRAME2
                 .append("g")
                 .attr("transform", `translate(${PIE_WIDTH / 2}, ${PIE_HEIGHT / 2})`);
-
-            console.log(pieChart);
 
             let pieData = {};
 
@@ -299,33 +297,34 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                 };
             }
 
-            // Get unique races
-            const raceNames = Object.keys(pieData);
+            // gets unique races
+            const raceTypes = Object.keys(pieData);
 
-            //coloring the slices
+            // colors the slices based on race type
             const COLOR = d3.scaleOrdinal()
-                .domain(raceNames)
+                .domain(raceTypes)
                 .range(["yellow", "orange", "brown", "red", "purple", "darkgreen", "dodgerblue"]);
 
 
-            // call the d3 pie API to get the sizing  data
+            // calls the d3 pie API to get the sizing  data
             const PIE = d3.pie().value(function (d) {
                 return d[1];
             })
             .sort(null);
 
-            //pull the necessary data into a pie element
+            // pulls the data into a pie element
             const dataReady = PIE(Object.entries(pieData).map(d => [d[0], (d[1]/d3.sum(Object.values(pieData)))*100]));
 
-            //generate the arc and radius of the circles
+            // generates the arc and radius of the pie chart
             const arcGenerator = d3.arc().innerRadius(50).outerRadius(PIE_RADIUS);
 
-            //build the arc, apply it to a g element
+            // builds the arc and appends it to a g element
             const ARC = pieChart.selectAll(".arc")
                 .data(dataReady)
                 .enter().append("g")
                 .attr("class", "arc");
  
+            // builds paths and appends attributes and events
             ARC.append("path")
                     .attr("d", arcGenerator)
                     .attr("fill", function (d) {
@@ -342,8 +341,10 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .on("mouseout", function (event, d) {
                         d3.select(this)
                             .attr("fill", COLOR(d.data[0]))
-                            .style("stroke-width", "1px");;
+                            .style("stroke-width", "1px");
                     });
+
+            // appends tooltips
             ARC.selectAll("path")
                     .on("mouseover", function(event, d) {
                         const value = d.data[1].toFixed(2);
@@ -354,7 +355,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                             .style("top", event.pageY + 10 + "px");                          
                         d3.select(this)
                             .attr("fill", d3.color(COLOR(d.data[0])).copy({opacity: 0.5}))
-                            .style("stroke-width", "3px");;
+                            .style("stroke-width", "3px");
                     })
                     .on("mousemove", function(event, d) {
                         TOOLTIP_PIE
@@ -365,12 +366,12 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                         TOOLTIP_PIE.style("opacity", 0);
                         d3.select(this)
                             .attr("fill", COLOR(d.data[0]))
-                            .style("stroke-width", "1px");;
+                            .style("stroke-width", "1px");
                     });
 
-            // Create a legend
+            // creates a legend
             const LEGEND = pieChart.selectAll(".legend")
-                .data(raceNames)
+                .data(raceTypes)
                 .enter()
                 .append("g")
                 .attr("class", "legend")
@@ -393,7 +394,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
         });
     }
 
-    //function to create the second pie chart
+    // creates the right-column pie chart
     function pie_chart_2(collegeTwoValue) {
 
         d3.csv("data/test_pie.csv").then((data) => {
@@ -402,62 +403,61 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
             const PIE_MARGIN2 = 50;
             const PIE_RADIUS2 = Math.min(PIE_WIDTH2, PIE_HEIGHT2) / 2 - PIE_MARGIN2;
 
-            // remove the previous pie chart
-            let pieChart = d3.select("#vis3");
+            // removes the previous pie chart
+            let pieChart2 = d3.select("#vis3");
             FRAME3.selectAll(".arc").remove();
             FRAME3.selectAll(".slices").remove();
             FRAME3.selectAll(".pie-text").remove();
 
-            // append a new pie chart
+            // appends a new pie chart
             pieChart2 = FRAME3
                 .append("g")
                 .attr("transform", `translate(${PIE_WIDTH2 / 2}, ${PIE_HEIGHT2 / 2})`);
 
             let pieData2 = {};
 
-            const collegeData = data.find((d) => d['university name'] === collegeTwoValue);
+            const collegeData2 = data.find((d) => d['university name'] === collegeTwoValue);
 
-            if (collegeData) {
+            if (collegeData2) {
                 pieData2 = {
-                    "American Indian": +collegeData["American Indian"],
-                    "Black": +collegeData["Black"],
-                    "Hispanic": +collegeData["Hispanic"],
-                    "Pacific Islander": +collegeData["Pacific Islander"],
-                    "Asian": +collegeData["Asian"],
-                    "2+ races": +collegeData["2+ races"],
-                    "Other": +collegeData["Other"]
+                    "American Indian": +collegeData2["American Indian"],
+                    "Black": +collegeData2["Black"],
+                    "Hispanic": +collegeData2["Hispanic"],
+                    "Pacific Islander": +collegeData2["Pacific Islander"],
+                    "Asian": +collegeData2["Asian"],
+                    "2+ races": +collegeData2["2+ races"],
+                    "Other": +collegeData2["Other"]
                 };
             }
 
-            // Get unique races
-            const raceNames = Object.keys(pieData2);
+            // gets unique races
+            const raceTypes = Object.keys(pieData2);
 
-            //coloring the slices
+            // colors the slices based on race type
             const COLOR2 = d3.scaleOrdinal()
-                .domain(raceNames)
+                .domain(raceTypes)
                 .range(["yellow", "orange", "brown", "red", "purple", "darkgreen", "dodgerblue"]);
 
 
-            // call the d3 pie API to get the sizing  data
+            // calls the d3 pie API to get the sizing  data
             const PIE2 = d3.pie().value(function (d) {
                 return d[1];
             })
             .sort(null);
 
-            //pull the necessary data into a pie element
+            // pulls the data into a pie element
             const dataReady2 = PIE2(Object.entries(pieData2).map(d => [d[0], (d[1]/d3.sum(Object.values(pieData2)))*100]));
 
-            //generate the arc and radius of the circles
+            // generates the arc and radius of the pie chart
             const arcGenerator2 = d3.arc().innerRadius(50).outerRadius(PIE_RADIUS2);
 
-            //build the arc, apply it to a g element
+            // builds the arc and appends it to a g element
             const ARC_TWO = pieChart2.selectAll(".arc")
                 .data(dataReady2)
                 .enter().append("g")
                 .attr("class", "arc");
 
-            //build the paths from the center
-            //draw the paths from the center 
+            // builds paths and appends attributes and events
             ARC_TWO.append("path")
                     .attr("d", arcGenerator2)
                     .attr("fill", function (d) {
@@ -469,13 +469,15 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                     .on("mouseover", function (event, d) {
                         d3.select(this)
                             .attr("fill", d3.color(COLOR2(d.data[0])).copy({opacity: 0.5}))
-                            .style("stroke-width", "3px");;
+                            .style("stroke-width", "3px");
                     })
                     .on("mouseout", function (event, d) {
                         d3.select(this)
                             .attr("fill", COLOR2(d.data[0]))
-                            .style("stroke-width", "1px");;
+                            .style("stroke-width", "1px");
                     });
+
+            // appends tooltips
             ARC_TWO.selectAll("path")
                     .on("mouseover", function(event, d) {
                         const value = d.data[1].toFixed(2);
@@ -486,7 +488,7 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                             .style("top", event.pageY + 10 + "px");                          
                         d3.select(this)
                             .attr("fill", d3.color(COLOR2(d.data[0])).copy({opacity: 0.5}))
-                            .style("stroke-width", "3px");;
+                            .style("stroke-width", "3px");
                     })
                     .on("mousemove", function(event, d) {    
                         TOOLTIP_PIE2
@@ -497,12 +499,12 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                         TOOLTIP_PIE2.style("opacity", 0);
                         d3.select(this)
                             .attr("fill", COLOR2(d.data[0]))
-                            .style("stroke-width", "1px");;
+                            .style("stroke-width", "1px");
                     });
 
-            // Create a legend
+            // creates a legend
             const LEGEND = pieChart2.selectAll(".legend")
-                .data(raceNames)
+                .data(raceTypes)
                 .enter()
                 .append("g")
                 .attr("class", "legend")
@@ -595,8 +597,8 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                                 .attr("x", function (d) { return X_SCALE(d.category) + MARGINS.left })
                                 .attr("y", function (d) { return Y_SCALE(d[collegeOneValue]) + MARGINS.top })
                                 .attr("width", 90)
-                                .attr("height", d => { return VIS_HEIGHT - Y_SCALE(d[collegeOneValue]) })
-                                .attr("fill", d => { return z3(d.category) })
+                                .attr("height", d => { return VIS_HEIGHT - Y_SCALE(d[collegeOneValue]); })
+                                .attr("fill", d => { return z3(d.category); })
                                 .on("mousemove", function(event, d) {
                                     handleMousemove(event, d, collegeOneValue, collegeTwoValue);
                                 })
@@ -727,8 +729,8 @@ d3.csv("data/DS4200 PM-02 Dataset Final.csv").then(function(collegeData) {
                                 .attr("x", function (d) { return X_SCALE_2(d.category) + MARGINS.left })
                                 .attr("y", function (d) { return Y_SCALE_2(d[collegeTwoValue]) + MARGINS.top })
                                 .attr("width", 90)
-                                .attr("height", d => { return (VIS_HEIGHT - Y_SCALE_2(d[collegeTwoValue])) })
-                                .attr("fill", d => { return z3(d.category) })
+                                .attr("height", d => { return (VIS_HEIGHT - Y_SCALE_2(d[collegeTwoValue])); })
+                                .attr("fill", d => { return z3(d.category); })
                                 .on("mousemove", function(event, d) {
                                     handleMousemove(event, d, collegeOneValue, collegeTwoValue); })
                                 .on("mouseleave", handleMouseleave);
